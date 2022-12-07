@@ -37,6 +37,7 @@ module "prod_rg_name" {
   servicename = "${local.service_name}-rg"
 }
 
+    
 resource "azurerm_resource_group" "production_rg" {
     name = module.prod_rg_name.full_name
     location = "eastus"
