@@ -11,7 +11,6 @@ terraform {
     container_name       = "tfstate"
     key                  = "launchpad.tfstate"
   }
-
 }
 
 provider "azurerm" {
