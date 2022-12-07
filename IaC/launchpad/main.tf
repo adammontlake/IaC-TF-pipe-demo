@@ -38,5 +38,5 @@ module "prod_rg_name" {
 
 resource "azurerm_resource_group" "production_rg" {
   name     = module.prod_rg_name.full_name
-  location = "eastus"
+  location = "eastus2"
 }
