@@ -1,21 +1,21 @@
 terraform {
-    required_providers {
-        azurerm = {
-            source  = "hashicorp/azurerm"
-            version = "= 3.30.0"
-        }
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "= 3.30.0"
     }
-    backend "azurerm" {
-        resource_group_name  = "rg_tf_launchpad"
-        storage_account_name = "storagetflaunchpad"
-        container_name       = "tfstate"
-        key                  = "launchpad.tfstate"
-    }
+  }
+  backend "azurerm" {
+    resource_group_name  = "rg_tf_launchpad"
+    storage_account_name = "storagetflaunchpad"
+    container_name       = "tfstate"
+    key                  = "launchpad.tfstate"
+  }
 
 }
 
 provider "azurerm" {
-    features {}
+  features {}
 }
 
 locals {
@@ -24,10 +24,10 @@ locals {
     "module"    = "launchpad"
     "managedby" = "terraform"
   }
-    tags = merge(local.module_tag)
-    location = "eastus"
-    environment = "production"
-    service_name = "terraform"
+  tags         = merge(local.module_tag)
+  location     = "eastus"
+  environment  = "production"
+  service_name = "terraform"
 }
 
 module "prod_rg_name" {
@@ -38,6 +38,6 @@ module "prod_rg_name" {
 }
 
 resource "azurerm_resource_group" "production_rg" {
-    name = module.prod_rg_name.full_name
-    location = "eastus2"
+  name     = module.prod_rg_name.full_name
+  location = "eastus2"
 }
