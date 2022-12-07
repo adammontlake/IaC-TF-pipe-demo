@@ -31,10 +31,10 @@ locals {
 }
 
 module "prod_rg_name" {
-  source      = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/naming_convention"
-  location    = local.location
-  environment = local.environment
-  servicename = "${local.service_name}-rg"
+    source      = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/naming_convention"
+    location    = local.location
+    environment = local.environment
+    servicename = "${local.service_name}-rg"
 }
 
 resource "azurerm_resource_group" "production_rg" {
