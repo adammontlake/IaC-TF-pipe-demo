@@ -59,21 +59,48 @@ env:
   ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
   
 jobs:
-  terraform:
-    name: 'Terraform'
+  init:
+    name: init
     runs-on: ubuntu-latest
-    environment: production
-
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
-    defaults:
-      run:
-        shell: bash
-
+    
+    outputs:
+      folders: ${{ steps.diff.outputs.folders }}
+    
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Set output list of all new/modified folders 
+      id: diff
+      run: |
+        diffFolders=$( find -name "*.tf" | grep -E "^.*/.*/.*$" | xargs dirname | uniq | grep -v ".terraform" | grep -v "/IaC/modules" | jq  -cnR '[inputs | select(length>0)]')
+        echo "JSON of all new or modifed folders: \n $diffFolders"
+        echo "::set-output name=folders::${diffFolders}"
+
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    needs: [init]
+    environment: production
+    
+    # foreach folder from init job run this job 
+    strategy:
+      # if one of the jobs is failling - still continue to run all of the others 
+      fail-fast: false
+      matrix: 
+        folder: ${{ fromJson(needs.init.outputs.folders) }}
+    
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ matrix.folder }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
