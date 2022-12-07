@@ -7,8 +7,8 @@ variable "environment" {
   description = "(Required) Specifies the environment, for example: 'production' or 'staging'"
   type        = string
   validation {
-    condition     = contains(["production", "staging", "integration", "prodtesting", "pci", "preprod"], var.environment)
-    error_message = "The environment value must be one of production, staging, integration, prodtesting, pci in lower case."
+    condition     = contains(["production", "staging", "integration"], var.environment)
+    error_message = "The environment value must be one of production, staging, integration in lower case."
   }
 }
 
