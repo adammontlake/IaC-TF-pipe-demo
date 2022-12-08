@@ -33,8 +33,8 @@ jobs:
         echo "JSON of all new or modifed folders: \n $diffFolders"
         echo "::set-output name=folders::${diffFolders}"
 
-  terraform:
-    name: 'Terraform'
+  terraform-validate:
+    name: 'Terraform-validate'
     runs-on: ubuntu-latest
     needs: [init]
     environment: production
