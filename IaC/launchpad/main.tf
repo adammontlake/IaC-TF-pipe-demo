@@ -52,6 +52,6 @@ module "integration_rg_name" {
 }
 
 resource "azurerm_resource_group" "integration_rg" {
-  name     = module.int_rg_name.full_name
+  name     = module.integration_rg_name.full_name
   location = local.location-int
 }
