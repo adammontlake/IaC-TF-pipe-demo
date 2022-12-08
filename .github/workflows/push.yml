@@ -2,7 +2,7 @@ name: 'action-on-push'
 on:
   push: 
     branches-ignore:
-      - master
+      - main
 
 permissions:
   contents: read
@@ -71,3 +71,4 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan -input=false
+

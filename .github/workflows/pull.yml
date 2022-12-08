@@ -1,6 +1,8 @@
 name: 'action-on-pull'
 on:
   pull_request:
+    types:
+      - closed
     branches: 
       - master
 
