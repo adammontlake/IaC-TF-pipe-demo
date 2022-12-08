@@ -27,9 +27,9 @@ locals {
   location           = "eastus"
   environment        = "production"
   service_name       = "terraform"
-  location-stage     = "eastus"
-  environment-stage  = "staging"
-  service_name-stage = "terraform"
+  location-int       = "eastus"
+  environment-int    = "integration"
+  service_name-int   = "terraform"
 }
 
 module "prod_rg_name" {
@@ -44,14 +44,14 @@ resource "azurerm_resource_group" "production_rg" {
   location = local.location
 }
 
-module "stage_rg_name" {
+module "integration_rg_name" {
   source      = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/naming_convention"
-  location    = local.location-stage
-  environment = local.environment-stage
-  servicename = "${local.service_name-stage}-rg"
+  location    = local.location-int
+  environment = local.environment-int
+  servicename = "${local.service_name-int}-rg"
 }
 
-resource "azurerm_resource_group" "staging_rg" {
-  name     = module.stage_rg_name.full_name
-  location = local.location-stage
+resource "azurerm_resource_group" "integration_rg" {
+  name     = module.int_rg_name.full_name
+  location = local.location-int
 }
