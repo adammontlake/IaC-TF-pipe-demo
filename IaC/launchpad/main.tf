@@ -23,13 +23,13 @@ locals {
     "module"    = "launchpad"
     "managedby" = "terraform"
   }
-  tags               = merge(local.module_tag)
-  location           = "eastus"
-  environment        = "production"
-  service_name       = "terraform"
-  location-int       = "eastus"
-  environment-int    = "integration"
-  service_name-int   = "terraform"
+  tags             = merge(local.module_tag)
+  location         = "eastus"
+  environment      = "production"
+  service_name     = "terraform"
+  location-int     = "eastus"
+  environment-int  = "integration"
+  service_name-int = "terraform"
 }
 
 module "prod_rg_name" {
