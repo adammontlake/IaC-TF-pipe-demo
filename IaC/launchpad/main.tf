@@ -50,8 +50,3 @@ module "stage_rg_name" {
   environment = local.environment-stage
   servicename = "${local.service_name-stage}-rg"
 }
-
-resource "azurerm_resource_group" "staging_rg" {
-  name     = module.stage_rg_name.full_name
-  location = local.location-stage
-}
