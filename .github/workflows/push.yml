@@ -2,7 +2,7 @@ name: 'action-on-push'
 on:
   push: 
     branches-ignore:
-      - master
+      - main
 
 permissions:
   contents: read
