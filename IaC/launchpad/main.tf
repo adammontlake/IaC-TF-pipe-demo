@@ -23,10 +23,13 @@ locals {
     "module"    = "launchpad"
     "managedby" = "terraform"
   }
-  tags         = merge(local.module_tag)
-  location     = "eastus"
-  environment  = "production"
-  service_name = "terraform"
+  tags               = merge(local.module_tag)
+  location           = "eastus"
+  environment        = "production"
+  service_name       = "terraform"
+  location-stage     = "eastus"
+  environment-stage  = "production"
+  service_name-stage = "terraform"
 }
 
 module "prod_rg_name" {
@@ -38,5 +41,17 @@ module "prod_rg_name" {
 
 resource "azurerm_resource_group" "production_rg" {
   name     = module.prod_rg_name.full_name
-  location = "eastus"
+  location = local.location
+}
+
+module "stage_rg_name" {
+  source      = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/naming_convention"
+  location    = local.location-stage
+  environment = local.environment-stage
+  servicename = "${local.service_name-stage}-rg"
+}
+
+resource "azurerm_resource_group" "staging_rg" {
+  name     = module.stage_rg_name.full_name
+  location = local.location-stage
 }
