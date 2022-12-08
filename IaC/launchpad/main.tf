@@ -27,7 +27,7 @@ locals {
   location           = "eastus"
   environment        = "production"
   service_name       = "terraform"
-  location-stage     = "eastus"
+  location-stage     = "eastus2"
   environment-stage  = "staging"
   service_name-stage = "terraform"
 }
