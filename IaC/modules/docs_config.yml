@@ -18,9 +18,10 @@ content: |-
   ## Change log
     ```hcl
   {{ include "./docs/change_log.md" }}
+  ```
 
   {{ .Footer }}
-  ```
+  
 
 
 
