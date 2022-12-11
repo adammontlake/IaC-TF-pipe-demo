@@ -6,6 +6,7 @@ The module will generate the base string for resource name based on common guide
 
 ## Naming convention 
 The module will output with the following conventaion `<env_prefix>-<service_name>-<location_short>`  
+For resources that are not able to get speciat characters in the name the name_alphanum output is used in the formati of:  `<env_prefix><service_name><location_short>`  
 <br />
 
 ## Example
@@ -13,7 +14,7 @@ The module will output with the following conventaion `<env_prefix>-<service_nam
  
 ```terraform
 module "naming" {
-  source      = "git::https://github.com/IaC-TF-pipe-demo/terraform-modules.git//general/naming?ref=general-naming-v1.0"
+  source      = "git::https://github.com/IaC-TF-pipe-demo/terraform-modules.git//general/naming"
   location    = var.location
   environment = var.environment
   servicename = var.servicename
@@ -58,6 +59,9 @@ env
 
 # full name which containe the location_short, env, and the name from the caller module
 full_name
+
+# same as full name but with alpha numeric characters only for resource compliance
+name_alphanum
 ```
 ### Local variable 
 ```yaml
