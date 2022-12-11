@@ -1,14 +1,14 @@
 variable "service_name" {
-  description = "(Required) will be the name of the service, for example \"<env>-<service-name>-storage-<region>\""
+  description = "will be the name of the service, for example \"<env>-<service-name>-storage-<region>\""
   type        = string
 }
 variable "resource_group_name" {
-  description = "(Required) The name of the resource group where to create the resource."
+  description = "The name of the resource group where to create the resource."
   type        = string
 }
 
 variable "location" {
-  description = "(Required) Specifies the supported Azure location where to create the resource. Changing this forces a new resource to be created."
+  description = "Specifies the supported Azure location where to create the resource. Changing this forces a new resource to be created."
   type        = string
   validation {
     condition = anytrue([
@@ -21,7 +21,7 @@ variable "location" {
 }
 
 variable "account_tier" {
-  description = "(Optional) The account_tier of the storage account. Accepted values are Basic and Standard. Defaults to Basic."
+  description = "The account_tier of the storage account. Accepted values are Basic and Standard. Defaults to Basic."
   type        = string
   default     = "Basic"
   validation {
@@ -31,13 +31,13 @@ variable "account_tier" {
 }
 
 variable "tags" {
-  description = "(Optional) Tags for the resource to be deployed."
+  description = "Tags for the resource to be deployed."
   default     = null
   type        = map(any)
 }
 
 variable "environment" {
-  description = "(Required) Name of the destination enviroment."
+  description = "Name of the destination enviroment."
   type        = string
   default     = "production"
   validation {
