@@ -18,6 +18,15 @@ content: |-
   ## Change log
     ```hcl
   {{ include "./docs/change_log.md" }}
+
+  {{ .Footer }}
   ```
+
+
+
 recursive:
   enabled: false
+
+sort:
+  enabled: true
+# terraform-docs markdown table . -c ..\docs_config.yml --output-file README.md
