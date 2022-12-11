@@ -3,7 +3,7 @@ content: |-
   {{ .Header }}
   ## Example ussage
   ```hcl
-  {{ include "./examples/example.terraform" }}
+  {{ include "./docs/example.terraform" }}
   ``` 
   {{ .Inputs }} 
   
@@ -14,5 +14,10 @@ content: |-
   {{ .Resources }}
 
   {{ .Requirements }}
+
+  ## Change log
+    ```hcl
+  {{ include "./docs/change_log.md" }}
+  ```
 recursive:
   enabled: false
