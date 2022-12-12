@@ -49,8 +49,8 @@ jobs:
 
     strategy:
       fail-fast: true
-      matrix: 
-        folder: ${{ fromJson(needs.init.outputs.modules) }}
+      #matrix: 
+      #  folder: ${{ fromJson(needs.init.outputs.modules) }}
 
     steps:
     - uses: actions/checkout@v3
