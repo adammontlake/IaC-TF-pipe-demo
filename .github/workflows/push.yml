@@ -65,7 +65,7 @@ jobs:
         echo $(ls -la ../ )
         echo $(ls -la ../../ )
         echo $(pwd)
-        ls /home/runner/work/IaC-TF-pipe-demo/IaC-TF-pipe-demo/
+        ls /home/runner/work/IaC-TF-pipe-demo/IaC-TF-pipe-demo/IaC/
 
     - name: Render terraform docs inside the README.md and push changes back to PR branch
       uses: terraform-docs/gh-actions@v1.0.0
