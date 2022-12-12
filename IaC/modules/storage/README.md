@@ -36,6 +36,7 @@ module "storage" {
 | Name | Description |
 |------|-------------|
 | <a name="output_id"></a> [id](#output\_id) | The storage account ID |
+| <a name="output_name"></a> [name](#output\_name) | Storage account name |
 
 ## Providers
 
