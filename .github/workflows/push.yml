@@ -37,7 +37,7 @@ jobs:
     - name: Set output list of all new/modified modules 
       id: diff-modules
       run: |
-        diffModules=$( find -name "*.tf" | grep -E "^.*/.*/.*$" | xargs dirname | uniq | grep -v ".terraform" | grep "/IaC/modules" | jq  -cnR '[inputs | select(length>0)]')
+        diffModules=$( find -name "*.tf" | grep -E "^.*/.*/.*$" | xargs dirname | uniq | grep -v ".terraform" | grep "/IaC/modules" | tr '\n' ',')
         echo "JSON of all new or modifed Module: \n $diffModules"
         echo "::set-output name=modules::${diffModules}"
 
@@ -68,7 +68,7 @@ jobs:
     - name: Render terraform docs inside the README.md and push changes back to PR branch
       uses: terraform-docs/gh-actions@v1.0.0
       with:
-        working-dir: ${{ fromJson(needs.init.outputs.modules) }}
+        working-dir: ${{ needs.init.outputs.modules }}
         output-file: README.md
         output-method: inject
         git-push: "true"
