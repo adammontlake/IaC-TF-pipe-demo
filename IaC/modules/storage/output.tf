@@ -3,3 +3,7 @@ output "id" {
   value       = azurerm_storage_account.storage.id
 }
 
+output "name" {
+  description = "Storage account name"
+  value       = azurerm_storage_account.storage.name
+}
