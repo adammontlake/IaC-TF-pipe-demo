@@ -12,3 +12,8 @@ output "env" {
 output "full_name" {
   value = lower("${local.env}-${var.servicename}-${local.location_short}")
 }
+
+# Output name with only alpha numeric to comply with resources naming limits
+output "name_alphanum" {
+  value = lower("${local.env}${var.servicename}${local.location_short}")
+}
