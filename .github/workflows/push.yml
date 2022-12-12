@@ -75,6 +75,7 @@ jobs:
         output-method: inject
         git-push: "true"
         config-file: ./../docs_config.yml
+        git-commit-message: "Automatic documentation update"
 
   terraform-validate:
     name: 'Terraform-validate'
