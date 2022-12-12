@@ -20,6 +20,7 @@ jobs:
     
     outputs:
       folders: ${{ steps.diff.outputs.folders }}
+      modules: ${{ steps.diff-modules.outputs.modules }}
     
     steps:
     # Checkout the repository to the GitHub Actions runner
