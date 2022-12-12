@@ -74,3 +74,37 @@ env
 <br />
 
 # Change log
+
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+No providers.
+
+## Modules
+
+No modules.
+
+## Resources
+
+No resources.
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_environment"></a> [environment](#input\_environment) | (Required) Specifies the environment, for example: 'production' or 'staging' | `string` | n/a | yes |
+| <a name="input_location"></a> [location](#input\_location) | (Required) Specifies the location, for example: 'north Europe' or 'west Europe'. | `string` | n/a | yes |
+| <a name="input_servicename"></a> [servicename](#input\_servicename) | (Required) Specifies the name of the service which will be created. | `string` | n/a | yes |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_env"></a> [env](#output\_env) | Output will provied the short enviorment, for example: "Production" will convert to > prod |
+| <a name="output_full_name"></a> [full\_name](#output\_full\_name) | Output include the full name which containe the location\_short, env, and the name from the caller module |
+| <a name="output_location_short"></a> [location\_short](#output\_location\_short) | Output will privede the short location, for example "West Europe" will convert to > we |
+<!-- END_TF_DOCS -->
