@@ -64,7 +64,7 @@ jobs:
         echo $(ls -la)
         echo $(ls -la ../ )
         echo $(ls -la ../../ )
-        cat ./IaC/modules/docs_config.yml
+        echo $(pwd)
 
     - name: Render terraform docs inside the README.md and push changes back to PR branch
       uses: terraform-docs/gh-actions@v1.0.0
