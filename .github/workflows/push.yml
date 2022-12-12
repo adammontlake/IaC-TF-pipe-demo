@@ -73,7 +73,8 @@ jobs:
         output-file: README.md
         output-method: inject
         git-push: "true"
-        template: "./../docs_config.yml"
+        args: -c ./../docs_config.yml
+        #template: "./../docs_config.yml"
 
   terraform-validate:
     name: 'Terraform-validate'
