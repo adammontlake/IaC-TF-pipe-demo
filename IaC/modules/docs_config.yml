@@ -22,9 +22,6 @@ content: |-
 
   {{ .Footer }}
   
-
-
-
 recursive:
   enabled: false
 
