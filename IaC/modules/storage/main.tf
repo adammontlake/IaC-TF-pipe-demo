@@ -16,7 +16,7 @@ resource "azurerm_storage_account" "storage" {
   tags                     = local.tags
 }
 
-resource "azurerm_storage_container" "example" {
+resource "azurerm_storage_container" "terraform_state_storage" {
   count                 = var.terraform_state_storage ? 1 : 0 #Create this container if this storage will be used for storing terraform state
   name                  = "tfstate"
   storage_account_name  = azurerm_storage_account.storage.name
