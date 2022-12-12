@@ -49,24 +49,15 @@ jobs:
 
     strategy:
       fail-fast: true
-      #matrix: 
-      #  folder: ${{ fromJson(needs.init.outputs.modules) }}
 
     steps:
+    # Pull the latest changes
     - uses: actions/checkout@v3
       with:
         ref: ${{ github.event.push_request.head.ref }}
         token: ${{ secrets.GH_TOKEN }}
 
-    - name: echo dir content 
-      id: echo-test
-      run: |
-        echo $(ls -la)
-        echo $(ls -la ../ )
-        echo $(ls -la ../../ )
-        echo $(pwd)
-        cat /home/runner/work/IaC-TF-pipe-demo/IaC-TF-pipe-demo/IaC/modules/docs_config.yml
-
+    # Check required docs update for each module
     - name: Render terraform docs inside the README.md and push changes back to PR branch
       uses: terraform-docs/gh-actions@v1.0.0
       with:
