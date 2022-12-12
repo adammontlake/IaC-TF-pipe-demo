@@ -53,6 +53,10 @@ jobs:
         folder: ${{ fromJson(needs.init.outputs.modules) }}
 
     steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.push_request.head.ref }}
+
     - name: echo dir content 
       id: echo-test
       run: |
