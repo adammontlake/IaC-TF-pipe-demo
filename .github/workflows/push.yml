@@ -54,7 +54,7 @@ jobs:
 
     steps:
     - name: echo dir content 
-      id: echo test
+      id: echo-test
       run: |
         echo $(ls -la)
         echo $(ls -la ../ )
