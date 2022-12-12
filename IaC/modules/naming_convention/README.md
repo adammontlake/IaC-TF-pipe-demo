@@ -104,6 +104,7 @@ module "resource_name" {
 | <a name="output_env"></a> [env](#output\_env) | Output will provied the short enviorment, for example: "Production" will convert to > prod |
 | <a name="output_full_name"></a> [full\_name](#output\_full\_name) | Output include the full name which containe the location\_short, env, and the name from the caller module |
 | <a name="output_location_short"></a> [location\_short](#output\_location\_short) | Output will privede the short location, for example "West Europe" will convert to > we |
+| <a name="output_name_alphanum"></a> [name\_alphanum](#output\_name\_alphanum) | Output name with only alpha numeric to comply with resources naming limits |
 
 ## Providers
 
