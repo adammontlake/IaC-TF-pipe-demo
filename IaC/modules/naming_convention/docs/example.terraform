@@ -1,0 +1,6 @@
+module "resource_name" {
+  source      = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/naming_convention"
+  location    = local.location
+  environment = local.environment
+  servicename = "${local.service_name}-resource-type"
+}
