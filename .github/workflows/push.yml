@@ -74,7 +74,7 @@ jobs:
         output-file: README.md
         output-method: inject
         git-push: "true"
-        args: -c /home/runner/work/IaC-TF-pipe-demo/IaC-TF-pipe-demo/Iac/modules/docs_config.yml
+        args: -c /home/runner/work/IaC-TF-pipe-demo/IaC-TF-pipe-demo/IaC/modules/docs_config.yml
         #template: "./../docs_config.yml"
 
   terraform-validate:
