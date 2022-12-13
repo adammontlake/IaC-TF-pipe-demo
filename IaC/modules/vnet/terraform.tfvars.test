@@ -1,0 +1,14 @@
+vnet_name                                               = "test_vn"
+environment                                             = "staging"
+resource_group_name                                     = "Lampu"
+address_space                                           = "10.0.0.0/16"
+address_spaces                                          = []
+dns_servers                                             = ["1.1.1.1", "1.0.0.1"]
+subnet_prefixes                                         = ["10.0.1.0/24"]
+subnet_names                                           = ["subnet1"]
+subnet_enforce_private_link_endpoint_network_policies   = {}
+subnet_service_endpoints                                = {}
+tags = {
+    environment = "default"
+}
+location                                                = "eastus"
