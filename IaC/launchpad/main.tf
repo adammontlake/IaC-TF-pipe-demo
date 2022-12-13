@@ -57,7 +57,7 @@ resource "azurerm_resource_group" "integration_rg" {
 }
 
 module "prod_storage" {
-  source      = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/storage"
+  source                  = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/storage"
   service_name            = "terraform"
   resource_group_name     = module.prod_rg_name.full_name
   location                = local.location
