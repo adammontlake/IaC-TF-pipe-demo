@@ -1,6 +1,5 @@
-
 # Calling the naming module
-module "naming" {
+module "storage_naming" {
   source      = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/naming_convention"
   location    = var.location
   environment = var.environment
@@ -8,10 +7,10 @@ module "naming" {
 }
 
 resource "azurerm_storage_account" "storage" {
-  name                     = module.naming.name_alphanum
+  name                     = module.storage_naming.name_alphanum
   resource_group_name      = var.resource_group_name
   location                 = var.location
-  account_tier             = var.sku                #validate the accoutn  tier in input
+  account_tier             = var.account_tier       #validate the accoutn  tier in input
   account_replication_type = local.replication_type #Determine replication type from environment
   tags                     = local.tags
 }
