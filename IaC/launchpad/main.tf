@@ -55,3 +55,17 @@ resource "azurerm_resource_group" "integration_rg" {
   name     = module.integration_rg_name.full_name
   location = local.location-int
 }
+
+module "prod_storage" {
+  source                  = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/storage"
+  service_name            = "terraform"
+  resource_group_name     = module.prod_rg_name.full_name
+  location                = local.location
+  account_tier            = "Standard"
+  environment             = local.environment
+  terraform_state_storage = true
+  tags = {
+    environment = "production"
+    costcenter  = "it"
+  }
+}
