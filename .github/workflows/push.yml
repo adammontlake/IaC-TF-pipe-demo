@@ -116,7 +116,7 @@ jobs:
         echo "provider "azurerm" {  features {}}" >> provider.tf
     
     - name: Terraform Plan
-      run: terraform plan -input=terraform.tfvars.test
+      run: terraform plan -var-file==terraform.tfvars.test
 
 ############
   terraform-validate:
