@@ -118,7 +118,7 @@ jobs:
         }" >> provider.tf
     
     - name: Terraform Plan
-      run: terraform plan -var-file==terraform.tfvars.test
+      run: terraform plan -var-file=terraform.tfvars.test
 
 ############
   terraform-validate:
