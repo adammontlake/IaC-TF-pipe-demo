@@ -113,7 +113,9 @@ jobs:
     - name: Create provider file 
       id: provider
       run: |
-        echo "provider "azurerm" {  features {}}" >> provider.tf
+        echo "provider "azurerm" {  
+          features {}
+        }" >> provider.tf
     
     - name: Terraform Plan
       run: terraform plan -var-file==terraform.tfvars.test
