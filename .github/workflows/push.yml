@@ -65,7 +65,7 @@ jobs:
         output-file: README.md
         output-method: inject
         git-push: "true"
-        config-file: ./../docs_config.yml
+        config-file: ${{ github.workspace }}/IaC/modules/docs_config.yml
         git-commit-message: "Automatic documentation update"
 
 ############
