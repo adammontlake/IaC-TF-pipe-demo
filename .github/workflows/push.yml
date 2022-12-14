@@ -21,6 +21,7 @@ jobs:
     outputs:
       folders: ${{ steps.diff.outputs.folders }}
       modules: ${{ steps.diff-modules.outputs.modules }}
+      plan-modules: ${{ steps.plan-modules.outputs.planModules }}
     
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -37,10 +38,18 @@ jobs:
     - name: Set output list of all new/modified modules 
       id: diff-modules
       run: |
-        diffModules=$( find -name "*.tf" | grep -E "^.*/.*/.*$" | xargs dirname | uniq | grep -v ".terraform" | grep "/IaC/modules" | jq  -cnR '[inputs | select(length>0)]')
+        diffModules=$( find -name "*.tf" | grep -E "^.*/.*/.*$" | xargs dirname | uniq | grep -v ".terraform" | grep "/IaC/modules" | tr '\n' ',')
         echo "JSON of all new or modifed Module: \n $diffModules"
         echo "::set-output name=modules::${diffModules}"
-    #diffModules=$( find -name "*.tf" | grep -E "^.*/.*/.*$" | xargs dirname | uniq | grep -v ".terraform" | grep "/IaC/modules" | tr '\n' ',')
+    
+    - name: Set output list of all modules to test with plan
+      id: plan-modules
+      run: |
+        planModules=$( find -name "*.tf" | grep -E "^.*/.*/.*$" | xargs dirname | uniq | grep -v ".terraform" | grep "/IaC/modules" | jq  -cnR '[inputs | select(length>0)]')
+        echo "JSON of all new or modifed Module: \n $planModules"
+        echo "::set-output name=planModules::${planModules}"
+
+    
   readme-generation:
     name: 'readme-generation'
     runs-on: ubuntu-latest
@@ -81,7 +90,7 @@ jobs:
       # if one of the jobs is failling - still continue to run all of the others 
       fail-fast: false
       matrix: 
-        folder: ${{ fromJson(needs.init.outputs.modules) }}
+        folder: ${{ fromJson(needs.init.outputs.plan-modules) }}
     
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
