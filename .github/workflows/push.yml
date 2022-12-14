@@ -37,10 +37,10 @@ jobs:
     - name: Set output list of all new/modified modules 
       id: diff-modules
       run: |
-        diffModules=$( find -name "*.tf" | grep -E "^.*/.*/.*$" | xargs dirname | uniq | grep -v ".terraform" | grep "/IaC/modules" | tr '\n' ',')
+        diffModules=$( find -name "*.tf" | grep -E "^.*/.*/.*$" | xargs dirname | uniq | grep -v ".terraform" | grep "/IaC/modules" | jq  -cnR '[inputs | select(length>0)]')
         echo "JSON of all new or modifed Module: \n $diffModules"
         echo "::set-output name=modules::${diffModules}"
-    #diffModules=$( find -name "*.tf" | grep -E "^.*/.*/.*$" | xargs dirname | uniq | grep -v ".terraform" | grep "/IaC/modules" | tr '\n' ',' | sed 's/,*$//')
+    #diffModules=$( find -name "*.tf" | grep -E "^.*/.*/.*$" | xargs dirname | uniq | grep -v ".terraform" | grep "/IaC/modules" | tr '\n' ',')
   readme-generation:
     name: 'readme-generation'
     runs-on: ubuntu-latest
