@@ -109,7 +109,8 @@ jobs:
     - name: cd
       run: |
         echo "${{ matrix.folder }}"
-        cd ${{ matrix.folder }}
+        echo ${pwd}
+      #cd ${{ matrix.folder }}
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
