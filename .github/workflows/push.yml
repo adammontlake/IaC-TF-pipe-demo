@@ -39,7 +39,7 @@ jobs:
       run: |
         diffModules=$( find -name "*.tf" | grep -E "^.*/.*/.*$" | xargs dirname | uniq | grep -v ".terraform" | grep "/IaC/modules" | tr '\n' ',')
         echo "JSON of all new or modifed Module: \n $diffModules"
-        echo "::set-output name=modules::[${diffModules}]"
+        echo "::set-output name=modules::${diffModules}"
     #diffModules=$( find -name "*.tf" | grep -E "^.*/.*/.*$" | xargs dirname | uniq | grep -v ".terraform" | grep "/IaC/modules" | tr '\n' ',' | sed 's/,*$//')
   readme-generation:
     name: 'readme-generation'
@@ -65,7 +65,7 @@ jobs:
         output-file: README.md
         output-method: inject
         git-push: "true"
-        config-file: ${{ github.workspace }}/IaC/modules/docs_config.yml
+        config-file: ../docs_config.yml
         git-commit-message: "Automatic documentation update"
 
 ############
