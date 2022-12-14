@@ -110,6 +110,7 @@ jobs:
       run: |
         echo "${{ matrix.folder }}"
         echo ${pwd}
+        echo ${ls}
       #cd ${{ matrix.folder }}
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
