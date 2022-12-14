@@ -37,9 +37,9 @@ jobs:
     - name: Set output list of all new/modified modules 
       id: diff-modules
       run: |
-        diffModules=$( find -name "*.tf" | grep -E "^.*/.*/.*$" | xargs dirname | uniq | grep -v ".terraform" | grep "/IaC/modules" | tr '\n' ',')
+        diffModules=$( find -name "*.tf" | grep -E "^.*/.*/.*$" | xargs dirname | uniq | grep -v ".terraform" | grep "/IaC/modules" | tr '\n' ',' | sed 's/,*$//')
         echo "JSON of all new or modifed Module: \n $diffModules"
-        echo "::set-output name=modules::${diffModules}"
+        echo "::set-output name=modules::[${diffModules}]"
 
   readme-generation:
     name: 'readme-generation'
@@ -81,7 +81,7 @@ jobs:
       # if one of the jobs is failling - still continue to run all of the others 
       fail-fast: false
       matrix: 
-        folder: [${{ needs.init.outputs.modules }}]
+        folder: ${{ fromJson(needs.init.outputs.modules) }}
     
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
