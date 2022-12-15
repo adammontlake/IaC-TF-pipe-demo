@@ -49,7 +49,6 @@ jobs:
         echo "JSON of all new or modifed Module: \n $planModules"
         echo "::set-output name=planModules::${planModules}"
 
-    
   readme-generation:
     name: 'readme-generation'
     runs-on: ubuntu-latest
@@ -76,8 +75,6 @@ jobs:
         git-push: "true"
         config-file: ../docs_config.yml
         git-commit-message: "Automatic documentation update"
-
-############
 
   check-modules:
     name: 'check-modules'
@@ -127,7 +124,6 @@ jobs:
     - name: Terraform Plan
       run: terraform plan -var-file=terraform.tfvars.test
 
-############
   terraform-validate:
     name: 'Terraform-validate'
     runs-on: ubuntu-latest
@@ -158,6 +154,10 @@ jobs:
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init
+
+    # Validates the configuration files in a directory, referring only to the configuration and not accessing any remote services such as remote state, provider APIs, etc.
+    - name: Terraform validate
+      run: terraform validate
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
