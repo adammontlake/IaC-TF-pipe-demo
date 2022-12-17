@@ -187,16 +187,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-    # - name: Setup Terraform
-    #   uses: hashicorp/setup-terraform@v1
-
-    - name: debug to check folder and content
-      id: debug-action
-      run: |        
-        echo $(pwd)
-        echo $(ls -la)
-        terraform plan
+    Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
 
     - name: Run Checkov action
       id: checkov
