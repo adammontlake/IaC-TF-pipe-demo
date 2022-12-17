@@ -191,11 +191,12 @@ jobs:
     # - name: Setup Terraform
     #   uses: hashicorp/setup-terraform@v1
 
-    # - name: debug to check folder and content
-    #   id: debug-action
-    #   run: |        
-    #     echo $(pwd)
-    #     echo $(ls -la)
+    - name: debug to check folder and content
+      id: debug-action
+      run: |        
+        echo $(pwd)
+        echo $(ls -la)
+        terraform plan
 
     - name: Run Checkov action
       id: checkov
