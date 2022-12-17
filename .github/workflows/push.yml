@@ -197,7 +197,7 @@ jobs:
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init
-      
+
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan -out=sec-plan
@@ -207,7 +207,7 @@ jobs:
       uses: bridgecrewio/checkov-action@master
       with:
         directory: .
-        file: sec-plan.json # optional: provide the path for resource to be scanned. This will override the directory if both are provided.
+        file: sec-plan # optional: provide the path for resource to be scanned. This will override the directory if both are provided.
         check: CKV_AWS_1 # optional: run only a specific check_id. can be comma separated list
         skip_check: CKV_AWS_2 # optional: skip a specific check_id. can be comma separated list
         #quiet: true # optional: display only failed checks
