@@ -202,6 +202,12 @@ jobs:
     - name: Terraform Plan
       run: terraform plan -out=sec-plan
 
+    - name: debug to check folder and content
+      id: debug-action
+      run: |        
+        echo $(pwd)
+        echo $(ls -la)
+
     - name: Run Checkov action
       id: checkov
       uses: bridgecrewio/checkov-action@master
