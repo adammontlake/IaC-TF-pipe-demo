@@ -176,15 +176,12 @@ jobs:
     # foreach folder from init job run this job 
     strategy:
       # if one of the jobs is failling - still continue to run all of the others 
-      fail-fast: false
-      #matrix: 
-        #folder: ${{ fromJson(needs.init.outputs.folders) }}
+      fail-fast: true
     
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
       run:
         shell: bash
-        #working-directory: ${{ matrix.folder }}
 
     steps:
     - name: Checkout
@@ -193,14 +190,6 @@ jobs:
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    # - name: Terraform Init
-    #   run: terraform init
-
-    # # Generates an execution plan for Terraform
-    # - name: Terraform Plan
-    #   run: terraform plan -out=sec-plan
 
     - name: debug to check folder and content
       id: debug-action
@@ -217,7 +206,7 @@ jobs:
         check: CKV_AZURE_3 # optional: run only a specific check_id. can be comma separated list
         soft_fail: false # optional: do not return an error code if there are failed checks
         download_external_modules: true # optional: download external terraform modules from public git repositories and terraform registry
-        #framework: terraform # optional: run only on a specific infrastructure {cloudformation,terraform,kubernetes,all}
+        framework: terraform # optional: run only on a specific infrastructure {cloudformation,terraform,kubernetes,all}
         #output_format: cli # optional: the output format, one of: cli, json, junitxml, github_failed_only, or sarif. Default: sarif
         #output_file_path: reports/results.sarif # folder and name of results file
         #log_level: DEBUG # optional: set log level. Default WARNING
