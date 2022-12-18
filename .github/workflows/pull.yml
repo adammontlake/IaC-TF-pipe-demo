@@ -20,6 +20,7 @@ jobs:
   init:
     name: init
     runs-on: ubuntu-latest
+    environment: prepare
     
     outputs:
       folders: ${{ steps.diff.outputs.folders }}

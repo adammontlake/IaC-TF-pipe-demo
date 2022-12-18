@@ -76,6 +76,14 @@ jobs:
         git-push: "true"
         config-file: ../docs_config.yml
         git-commit-message: "Automatic documentation update"
+    
+    - name: Create comment
+      uses: peter-evans/create-or-update-comment@v2
+      with:
+        body: |
+          This is a multi-line test comment
+          - With GitHub **Markdown** :sparkles:
+          - Created by [create-or-update-comment][1]
 
   check-modules:
     name: 'check-modules'
@@ -111,13 +119,6 @@ jobs:
           features {}
         }" >> provider.tf
         
-    - name: cd
-      run: |
-        echo "${{ matrix.folder }}"
-        echo "$(pwd)"
-        echo "$(ls)"
-      #cd ${{ matrix.folder }}
-
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init
