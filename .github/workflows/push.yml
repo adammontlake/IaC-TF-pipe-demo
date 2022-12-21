@@ -80,6 +80,7 @@ jobs:
     - name: Create comment
       uses: peter-evans/create-or-update-comment@v2
       with:
+        comment-id: 1
         body: |
           This is a multi-line test comment
           - With GitHub **Markdown** :sparkles:
