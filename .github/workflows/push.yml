@@ -197,10 +197,10 @@ jobs:
         #file: sec-plan # optional: provide the path for resource to be scanned. This will override the directory if both are provided.
         #log_level: DEBUG # optional: set log level. Default WARNING
     
-    - name: Print env variables 
-      id: echo
-      run: |
-        echo ${{ pr-check.outputs.number }}  
+    # - name: Print env variables 
+    #   id: echo
+    #   run: |
+    #     echo ${{ pr-check.outputs.number }}  
     # - name: Create comment
     #   uses: peter-evans/create-or-update-comment@v2
     #   with:
