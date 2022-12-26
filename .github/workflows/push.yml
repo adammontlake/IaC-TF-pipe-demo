@@ -196,3 +196,16 @@ jobs:
         framework: terraform # optional: run only on a specific infrastructure {cloudformation,terraform,kubernetes,all}
         #file: sec-plan # optional: provide the path for resource to be scanned. This will override the directory if both are provided.
         #log_level: DEBUG # optional: set log level. Default WARNING
+    
+    - name: Print env variables 
+      id: echo
+      run: |
+        echo ${{ pr-check.outputs.number }}  
+    # - name: Create comment
+    #   uses: peter-evans/create-or-update-comment@v2
+    #   with:
+    #     issue-number: ${{ github.event.pull_request.push_id }}
+    #     body: |
+    #       This is a multi-line test comment
+    #       - With GitHub **Markdown** :sparkles:
+    #       - Created by [create-or-update-comment][1]
