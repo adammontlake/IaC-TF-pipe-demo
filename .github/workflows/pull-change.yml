@@ -1,8 +1,8 @@
 name: 'action-on-pull'
 on:
-  pull_request:
+  pull_request_review_comment:
     types:
-      - closed
+      - created
     #branches: 
     #  - master
 
@@ -75,13 +75,8 @@ jobs:
     - name: Create comment
       uses: peter-evans/create-or-update-comment@v2
       with:
-        issue-number: ${{ github.event.pull_request.push_id }}
+        issue-number: ${{ github.event.pull_request.pull_id }}
         body: |
           This is a multi-line test comment
           - With GitHub **Markdown** :sparkles:
           - Created by [create-or-update-comment][1]
-      
-      # On pull to "main", build or change infrastructure according to Terraform configuration files
-      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-    - name: Terraform Apply
-      run: terraform apply -auto-approve -input=false
