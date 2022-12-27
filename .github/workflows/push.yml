@@ -159,7 +159,7 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: terraform plan -input=false FAILTEST
+      run: terraform plan -input=false
 
   security-scanning:
     name: 'security-scanning'
