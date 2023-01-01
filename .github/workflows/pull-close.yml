@@ -2,7 +2,7 @@ name: 'action-on-pull'
 on:
   pull_request:
     types:
-      - '!closed'
+      - closed
     #branches: 
     #  - master
 
@@ -66,17 +66,58 @@ jobs:
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
+      id: init
       run: terraform init
+
+    # Validate the Terraform code is written correctly and there are no comppile issues
+    - name: Terraform validate
+      id: validate
+      run: terraform validate
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
+      id: plan
       run: terraform plan -input=false
 
-    - name: add-comment
-      id: add_test_comment
+    # Add a comment to pull requests with plan results
+    - name: add-plan-comment
+      id: comment before deployment
       uses: actions/github-script@v3
       if: github.event_name == 'pull_request' && (success() || failure())
+      env:
+        PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
       with:
         github-token: ${{ secrets.GH_TOKEN }}
         script: |
           const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+          #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+          #### Terraform Validation 🤖${{ steps.validate.outputs.stdout }}
+          #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+          #### Checkov 🧪\`${{ steps.checkov.outcome }}\`
+      
+          <details><summary>Show Plan</summary>
+          
+          \`\`\`${process.env.PLAN}\`\`\`
+          
+          </details>
+
+          <details><summary>Show Checkov Results</summary>
+
+          removed line 2
+
+          </details>
+          
+          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
+            
+          github.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: output
+          })
+      # #### line1: Terraform Validation 🤖${{ steps.validate.outputs.stdout }}
+      # #### lines 2: ${process.env.CHECKOV_RESULTS}
+      # On pull to "main", build or change infrastructure according to Terraform configuration files
+      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
+    # - name: Terraform Apply
+    #   run: terraform apply -auto-approve -input=false
