@@ -2,10 +2,12 @@ name: 'action-on-pull'
 on:
   pull_request:
     types:
-      - '!closed'
+      - opened
+      - synchronize
+      - reopened
+      - edited
     #branches: 
     #  - master
-
 
 permissions:
   contents: read
