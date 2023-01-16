@@ -1,0 +1,81 @@
+name: 'Terraform'
+
+on: [push, pull_request]
+
+env:
+  TF_LOG: INFO
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    # Set the working directory to main for the config files
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./main
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    # Install the preferred version of Terraform CLI 
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: ${{ secrets.TERRAFORM_VERSION }}
+
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      id: init
+      env:
+        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+        RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
+        STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
+        CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
+      run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"
+
+    ###############################
+    ### Start editing from here ###
+    ###############################
+    
+    # Run a terraform fmt for push and PR on non-main branch
+    # Missing the following parameters: id, if, run
+    - name: Terraform Format
+      ...
+
+    # Run a terraform validate for push and PR on non-main branch
+    # Run even if formatting fails
+    # Missing the following parameters: id, if, run
+    - name: Terraform Validate
+      ...
+
+    # Run a terraform plan for pull requests only
+    # Missing the following parameters: id, env?, if, run
+    - name: Terraform Plan
+      ...
+
+    # Run Checkov against configuration
+    # Missing the following parameters: id, if, 
+    # with: check: CKV_AZURE_3
+    # uses: bridgecrewio/checkov-action@master
+    - name: Checkov
+      ...
+    
+    # Add a comment to pull requests with plan results
+    # Missing the following parameters: id, if, env? 
+    # with: github-token: ${{ secrets.GITHUB_TOKEN }}, script: |...
+    # uses: actions/github-script@v3
+    - name: add-plan-comment
+      ...
+
+    # On push to main, build or change infrastructure according to Terraform configuration files
+    # Missing the following parameters: id, if, env?, run
+    - name: Terraform Apply
+      ...
