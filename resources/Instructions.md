@@ -12,9 +12,8 @@ IaC - instructions
    * Create Resource Group 
    * Create Storage account
      * create container with name: (to hold Terraform state)
-6. Service Principal (for TF to deploy)
-  **with permissions: "contributor" on the Azure account**
-  * Generate secret for the SP
+6. Service Principal (for TF to deploy)  **with permissions: "contributor" on the Azure account**
+    * Generate secret for the SP
 7. Add these secrets to github secret
   * ARM_CLIENT_ID 
   * ARM_CLIENT_SECRET 
