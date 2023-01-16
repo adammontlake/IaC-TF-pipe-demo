@@ -81,7 +81,7 @@ jobs:
 
     # Add a comment to pull requests with plan results
     - name: add-plan-comment
-      id: comment before deployment
+      id: comment_before_deployment
       uses: actions/github-script@v3
       if: github.event_name == 'pull_request' && (success() || failure())
       env:
