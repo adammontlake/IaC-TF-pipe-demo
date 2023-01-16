@@ -7,12 +7,13 @@ module "storage_naming" {
 }
 
 resource "azurerm_storage_account" "storage" {
-  name                     = module.storage_naming.name_alphanum
-  resource_group_name      = var.resource_group_name
-  location                 = var.location
-  account_tier             = var.account_tier       #validate the accoutn  tier in input
-  account_replication_type = local.replication_type #Determine replication type from environment
-  tags                     = local.tags
+  name                      = module.storage_naming.name_alphanum
+  resource_group_name       = var.resource_group_name
+  location                  = var.location
+  account_tier              = var.account_tier       #validate the accoutn  tier in input
+  account_replication_type  = local.replication_type #Determine replication type from environment
+  enable_https_traffic_only = var.secure_storage
+  tags                      = local.tags
 }
 
 resource "azurerm_storage_container" "terraform_state_storage" {
