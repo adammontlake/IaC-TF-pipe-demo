@@ -31,7 +31,7 @@ module "env_storage" {
   account_tier            = "Standard"
   environment             = var.environment
   terraform_state_storage = true
-  secure_storage          = var.secure_storage
+  #secure_storage          = var.secure_storage
   tags = {
     environment = var.environment
     costcenter  = "it"
