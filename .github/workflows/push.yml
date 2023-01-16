@@ -123,6 +123,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [init,readme-generation]
     environment: prepare
+    max_attempts: 3
     
     # foreach folder from init job run this job 
     strategy:
