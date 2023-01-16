@@ -63,5 +63,5 @@ module "launch_stage" {
   source         = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/launch_environment"
   location       = local.location
   environment    = "staging"
-  secure_storage = false
+  secure_storage = true
 }
