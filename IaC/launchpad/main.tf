@@ -44,18 +44,6 @@ resource "azurerm_resource_group" "production_rg" {
   location = local.location
 }
 
-module "integration_rg_name" {
-  source      = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/naming_convention"
-  location    = local.location-int
-  environment = local.environment-int
-  servicename = "${local.service_name-int}-rg"
-}
-
-resource "azurerm_resource_group" "integration_rg" {
-  name     = module.integration_rg_name.full_name
-  location = local.location-int
-}
-
 module "prod_storage" {
   source                  = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/storage"
   service_name            = "terraform"
@@ -69,3 +57,4 @@ module "prod_storage" {
     costcenter  = "it"
   }
 }
+

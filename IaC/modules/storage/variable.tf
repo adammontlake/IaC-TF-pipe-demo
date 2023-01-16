@@ -55,3 +55,9 @@ variable "terraform_state_storage" {
   description = "Define storage as dedicated for holoding Terraform state"
   default     = false
 }
+
+variable "secure_storage" {
+  type        = bool
+  description = "Define a storage account that disables the https_traffic_only flag, defaults to true"
+  default     = true
+}
