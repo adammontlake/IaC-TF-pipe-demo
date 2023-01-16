@@ -10,10 +10,10 @@ output "rg_name" {
 
 output "storage_id" {
   description = "The storage account ID"
-  value       = azurerm_storage_account.env_storage.id
+  value       = module.env_storage.id
 }
 
 output "storage_name" {
   description = "Storage account name"
-  value       = azurerm_storage_account.env_storage.name
+  value       = module.env_storage.name
 }
