@@ -7,7 +7,7 @@ module "storage_naming" {
 }
 
 resource "azurerm_storage_account" "storage" {
-  name                      = "${module.storage_naming.name_alphanum}iac"
+  name                      = var.terraform_state_storage ? "${module.storage_naming.name_alphanum}iac" : "${module.storage_naming.name_alphanum}"
   resource_group_name       = var.resource_group_name
   location                  = var.location
   account_tier              = var.account_tier       #validate the accoutn  tier in input

@@ -12,7 +12,3 @@ terraform {
     key                  = "production.tfstate"
   }
 }
-
-provider "azurerm" {
-  features {}
-}
