@@ -4,6 +4,6 @@ locals {
     "module"    = basename(abspath(path.module))
     "managedby" = "terraform"
   }
-  tags             = merge(local.module_tag)
+  tags             = merge(local.module_tag, var.tags)
   replication_type = var.terraform_state_storage == "production" ? "LRS" : "LRS"
 }
