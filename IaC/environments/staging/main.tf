@@ -19,28 +19,28 @@ provider "azurerm" {
 
 locals {
   # default tags for the redis resource
-  service_name = "demoservice"
-  account_tier = "Standard"
-  environment = "staging"
+  service_name   = "demoservice"
+  account_tier   = "Standard"
+  environment    = "staging"
   secure_storage = false
   module_tag = {
     "managedby" = "terraform"
   }
-  tags             = merge(local.module_tag)
+  tags = merge(local.module_tag)
 }
 
 data "azurerm_resource_group" "staging_resource_group" {
-      name = "stg-staging-rg-e"
+  name = "stg-staging-rg-e"
 }
 
 module "staging_storage" {
-  source                  = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/storage"
-  service_name            = local.service_name
-  resource_group_name     = data.azurerm_resource_group.staging_resource_group.name
-  location                = data.azurerm_resource_group.staging_resource_group.location
-  account_tier            = local.account_tier
-  environment             = local.environment
-  secure_storage          = local.secure_storage
+  source              = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/storage"
+  service_name        = local.service_name
+  resource_group_name = data.azurerm_resource_group.staging_resource_group.name
+  location            = data.azurerm_resource_group.staging_resource_group.location
+  account_tier        = local.account_tier
+  environment         = local.environment
+  secure_storage      = local.secure_storage
   tags = {
     environment = local.environment
     costcenter  = "it"
