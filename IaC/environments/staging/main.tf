@@ -22,7 +22,7 @@ locals {
   service_name   = "demoservice"
   account_tier   = "Standard"
   environment    = "staging"
-  secure_storage = false
+  secure_storage = true
   module_tag = {
     "managedby" = "terraform"
   }
