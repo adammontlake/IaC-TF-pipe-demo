@@ -36,13 +36,13 @@ data "azurerm_resource_group" "staging_resource_group" {
 module "staging_storage" {
   source                  = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/storage"
   service_name            = local.service_name
-  resource_group_name     = azurerm_resource_group.staging_resource_group.name
-  location                = azurerm_resource_group.staging_resource_group.location
+  resource_group_name     = data.azurerm_resource_group.staging_resource_group.name
+  location                = data.azurerm_resource_group.staging_resource_group.location
   account_tier            = local.account_tier
-  environment             = var.environment
-  secure_storage          = var.secure_storage
+  environment             = local.environment
+  secure_storage          = local.secure_storage
   tags = {
-    environment = var.environment
+    environment = local.environment
     costcenter  = "it"
   }
 }
