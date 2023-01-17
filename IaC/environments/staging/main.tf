@@ -7,7 +7,7 @@ terraform {
   }
   backend "azurerm" {
     resource_group_name  = "stg-staging-rg-e"
-    storage_account_name = "stgterraformstoragee"
+    storage_account_name = "stgterraformstorageeiac"
     container_name       = "tfstate"
     key                  = "stage.tfstate"
   }
