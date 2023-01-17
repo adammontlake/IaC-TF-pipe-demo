@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "azurerm" {
-    resource_group_name  = "prod-terraform-rg-e"
+    resource_group_name  = "prod-production-rg-e"
     storage_account_name = "prodterraformstorageeiac"
     container_name       = "tfstate"
     key                  = "production.tfstate"
