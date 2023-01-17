@@ -13,7 +13,13 @@ terraform {
   }
 }
 
+<<<<<<< HEAD
 provider "azurerm" {
   features {}
 }
 
+=======
+# provider "azurerm" {
+#   features {}
+# }
+>>>>>>> 5a644b8247576356749c75a2b5e64609f60312b6
