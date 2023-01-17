@@ -17,3 +17,33 @@ provider "azurerm" {
   features {}
 }
 
+locals {
+  # default tags for the redis resource
+  service_name = "demoservice"
+  account_tier = "Standard"
+  environment = "staging"
+  secure_storage = false
+  module_tag = {
+    "module"    = basename(abspath(path.module))
+    "managedby" = "terraform"
+  }
+  tags             = merge(local.module_tag)
+}
+
+data "azurerm_resource_group" "staging_resource_group" {
+      name = "stg-staging-rg-e"
+}
+
+module "staging_storage" {
+  source                  = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/storage"
+  service_name            = local.service_name
+  resource_group_name     = azurerm_resource_group.staging_resource_group.name
+  location                = azurerm_resource_group.staging_resource_group.location
+  account_tier            = local.account_tier
+  environment             = var.environment
+  secure_storage          = var.secure_storage
+  tags = {
+    environment = var.environment
+    costcenter  = "it"
+  }
+}
