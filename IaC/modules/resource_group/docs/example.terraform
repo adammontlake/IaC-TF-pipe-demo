@@ -1,0 +1,9 @@
+module "resource_group" {
+  source                  = "git::https://github.com/IaC-TF-pipe-demo/terraform-modules.git//general/resource_group"
+  environment             = "integration"
+  location                = "eastus"
+  tags = {
+    environment = "dev"
+    costcenter  = "it"
+  }
+}
