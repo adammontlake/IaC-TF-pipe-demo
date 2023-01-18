@@ -6,8 +6,6 @@ on:
       - synchronize
       - reopened
       - edited
-    #branches: 
-    #  - master
 
 permissions:
   contents: read
