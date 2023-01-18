@@ -82,7 +82,7 @@ jobs:
     name: 'Terraform-deploy'
     runs-on: ubuntu-latest
     needs: [init]
-    environment: production
+    environment: prepare
     
     # foreach folder from init job run this job 
     strategy:
