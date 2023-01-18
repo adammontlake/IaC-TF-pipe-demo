@@ -113,10 +113,9 @@ jobs:
     - name: Terraform Plan
       run: terraform plan -input=false
 
-    - name: add-comment
-      id: add_test_comment
+    - name: add-plan-comment
+      id: comment_on_pr
       uses: actions/github-script@v3
-      if: github.event_name == 'pull_request' && (success() || failure())
       with:
         github-token: ${{ secrets.GH_TOKEN }}
         script: |
