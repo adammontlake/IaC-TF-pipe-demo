@@ -24,6 +24,7 @@ jobs:
     
     outputs:
       folders: ${{ steps.diff.outputs.folders }}
+      plan-modules: ${{ steps.plan-modules.outputs.planModules }}
     
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -42,7 +43,7 @@ jobs:
       run: |
         planModules=$( find -name "*.tf" | grep -E "^.*/.*/.*$" | xargs dirname | uniq | grep -v ".terraform" | grep "/IaC/modules" | jq  -cnR '[inputs | select(length>0)]')
         echo "JSON of all new or modifed Module: \n $planModules"
-        echo "::set-output name=planModules::${planModules}"
+        echo "::set-output name=planModules::${plan-modules}"
 
 
   check-modules:
