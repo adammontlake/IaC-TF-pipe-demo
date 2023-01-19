@@ -111,18 +111,41 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
+      id: plan
       run: terraform plan -input=false
 
     - name: add-plan-comment
-      id: comment_on_pr
+      id: comment_before_pr
       uses: actions/github-script@v3
+      if: github.event_name == 'pull_request' && (success() || failure())
+      env:
+        PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
       with:
         github-token: ${{ secrets.GH_TOKEN }}
         script: |
-            console.log(JSON.stringify(context.issue))
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: "foo"
-            })
+          const output = `#### Terraform Format and Style 🖌\`#$#$#$\`
+          #### Terraform Initialization ⚙️\`#$#$#$\`
+          #### Terraform Validation 🤖#$#$#$
+          #### Terraform Plan 📖\`#$#$#$\`
+          #### Checkov 🧪\` #$#$#$ \`
+      
+          <details><summary>Show Plan</summary>
+          
+          \`\`\`#$#$#$\`\`\`
+          
+          </details>
+
+          <details><summary>Show Checkov Results</summary>
+
+          removed line 2
+
+          </details>
+          
+          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
+            
+          github.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: output
+          })
