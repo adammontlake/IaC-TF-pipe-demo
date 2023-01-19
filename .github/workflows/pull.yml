@@ -138,6 +138,7 @@ jobs:
           #### Terraform Plan 📖\`#$#$#$\`
           #### Checkov 🧪\` #$#$#$ \`
           #### Add additional deployment details
+          #### Add additional deployment details2
           <details><summary>Show Plan</summary>
           
           \`\`\`#$#$#$\`\`\`
