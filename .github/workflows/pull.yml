@@ -56,7 +56,7 @@ jobs:
       # if one of the jobs is failling - still continue to run all of the others 
       fail-fast: false
       matrix: 
-        folder: ${{ fromJson(needs.init.outputs.plan-modules) }}
+        folder: ${{ fromJson(needs.init.outputs.planModules) }}
     
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
