@@ -137,7 +137,7 @@ jobs:
           #### Terraform Validation 🤖#$#$#$
           #### Terraform Plan 📖\`#$#$#$\`
           #### Checkov 🧪\` #$#$#$ \`
-      
+          #### Add additional deployment details
           <details><summary>Show Plan</summary>
           
           \`\`\`#$#$#$\`\`\`
