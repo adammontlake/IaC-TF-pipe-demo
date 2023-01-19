@@ -43,7 +43,7 @@ jobs:
       run: |
         planModules=$( find -name "*.tf" | grep -E "^.*/.*/.*$" | xargs dirname | uniq | grep -v ".terraform" | grep "/IaC/modules" | jq  -cnR '[inputs | select(length>0)]')
         echo "JSON of all new or modifed Module: \n $planModules"
-        echo "::set-output name=planModules::${plan-modules}"
+        echo "::set-output name=planModules::${planModules}"
 
 
   check-modules:
@@ -57,7 +57,7 @@ jobs:
       # if one of the jobs is failling - still continue to run all of the others 
       fail-fast: false
       matrix: 
-        folder: ${{ fromJson(needs.init.outputs.planModules) }}
+        folder: ${{ fromJson(needs.init.outputs.plan-modules) }}
     
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
