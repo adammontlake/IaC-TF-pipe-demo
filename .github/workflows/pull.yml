@@ -36,7 +36,15 @@ jobs:
         diffFolders=$( find -name "*.tf" | grep -E "^.*/.*/.*$" | xargs dirname | uniq | grep -v ".terraform" | grep -v "/IaC/modules" | jq  -cnR '[inputs | select(length>0)]')
         echo "JSON of all new or modifed folders: \n $diffFolders"
         echo "::set-output name=folders::${diffFolders}"
-  
+    
+    - name: Set output list of all modules to test with plan
+      id: plan-modules
+      run: |
+        planModules=$( find -name "*.tf" | grep -E "^.*/.*/.*$" | xargs dirname | uniq | grep -v ".terraform" | grep "/IaC/modules" | jq  -cnR '[inputs | select(length>0)]')
+        echo "JSON of all new or modifed Module: \n $planModules"
+        echo "::set-output name=planModules::${planModules}"
+
+
   check-modules:
     name: 'check-modules'
     runs-on: ubuntu-latest
