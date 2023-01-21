@@ -19,7 +19,7 @@ env:
 jobs:
   init:
     name: init
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     environment: prepare
     
     outputs:
@@ -48,7 +48,7 @@ jobs:
 
   check-modules:
     name: 'check-modules'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [init]
     environment: prepare
     
@@ -89,7 +89,7 @@ jobs:
 
   terraform:
     name: 'Terraform-deploy'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [init]
     environment: prepare
     
