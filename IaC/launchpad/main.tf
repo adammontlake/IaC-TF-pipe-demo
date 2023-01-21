@@ -23,45 +23,26 @@ locals {
     "module"    = "launchpad"
     "managedby" = "terraform"
   }
-  tags             = merge(local.module_tag)
-  location         = "eastus"
-  environment      = "production"
-  service_name     = "terraform"
-  location-int     = "eastus"
-  environment-int  = "integration"
-  service_name-int = "terraform"
+  tags                  = merge(local.module_tag)
+  location              = "eastus"
+  environment_name_prod = "production"
+  environment_name_stg  = "staging"
+  service_name          = "terraform"
+  location-int          = "eastus"
+  environment-int       = "integration"
+  service_name-int      = "terraform"
 }
 
-module "prod_rg_name" {
-  source      = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/naming_convention"
-  location    = local.location
-  environment = local.environment
-  servicename = "${local.service_name}-rg"
+module "launch_prod" {
+  source         = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/launch_environment"
+  location       = local.location
+  environment    = local.environment_name_prod
+  secure_storage = true
 }
-
-resource "azurerm_resource_group" "production_rg" {
-  name     = module.prod_rg_name.full_name
-  location = local.location
-}
-
-module "prod_storage" {
-  source                  = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/storage"
-  service_name            = "terraform"
-  resource_group_name     = module.prod_rg_name.full_name
-  location                = local.location
-  account_tier            = "Standard"
-  environment             = local.environment
-  terraform_state_storage = true
-  tags = {
-    environment = "production"
-    costcenter  = "it"
-  }
-}
-
 
 module "launch_stage" {
   source         = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/launch_environment"
   location       = local.location
-  environment    = "staging"
+  environment    = local.environment_name_stg
   secure_storage = true
 }

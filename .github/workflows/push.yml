@@ -157,15 +157,6 @@ jobs:
     - name: Terraform Format
       run: terraform fmt -check
 
-    # Generates an execution plan for Terraform
-    - name: Terraform Plan
-      run: |
-        # Retry 3 times before the steps actually fails
-        (echo "===== Terraform Plan Attempt: 1 ====" && terraform plan -input=false) || \
-        (echo "===== Terraform Plan Attempt: 2 ====" && terraform plan -input=false) || \
-        (echo "===== Terraform Plan Attempt: 3 ====" && terraform plan -input=false) || \
-        (echo "==== Terraform Plan Step Failed ====" && exit 1)
-
   security-scanning:
     name: 'security-scanning'
     runs-on: ubuntu-latest

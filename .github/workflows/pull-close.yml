@@ -1,4 +1,4 @@
-name: 'action-on-pull'
+name: 'action-on-pull-close'
 on:
   pull_request:
     types:
