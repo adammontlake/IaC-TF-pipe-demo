@@ -1,9 +1,9 @@
 IaC - instructions
 ============
 1. Create a GitHub Repo (Must be: **Public** - Open source!)
-2. Create folder in repo
-   * main <- this is where you put all the terraform files
-   * .github/workflows <- This is where we will place the actions file
+2. Create the following file structure in your new repo
+   * main/terraform.tf <- this is where you put all the terraform files
+   * .github/workflows/action.yml <- This is where we will place the actions file
 3. Add terraform files into repo
    * Copy from resources in our repo
 4. Add action file into repo
