@@ -1,1 +1,0 @@
-Header file for launch_environment module
