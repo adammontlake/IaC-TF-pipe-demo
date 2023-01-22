@@ -8,20 +8,22 @@ IaC - instructions
    * Press "create repository"
    * In the "quick setup" page, select **import code** ![import screenshot](https://github.com/adammontlake/IaC-TF-pipe-demo/blob/add_resources/resources/import_code.png)
    * Use the following repo to import: https://github.com/adammontlake/IaCPipelineStructure
-6. Azure account
+2. Azure account
    * Create Resource Group 
      * Resource Group name: "IaC_pipelines_rg" (to hold all the new resources)
    * Create Storage account
      * Storage account name: tfstorage${RANDOM_STRING}
      * In the storage account, create a container with the name: tfstate (to hold Terraform state)
        * Public access level = Private
-7. [Service Principal](https://learn.microsoft.com/en-us/azure/purview/create-service-principal-azure) (for TF to deploy)  **with permissions: "contributor"**
+3. [Service Principal](https://learn.microsoft.com/en-us/azure/purview/create-service-principal-azure) (for TF to deploy)  **with permissions: "contributor"**
     * Create a service principal for automatic deployment
       *  Name = terraform_runner_sp
     * Generate a secret 
       * Set expiry date to: Monday 30th Jan 2023
     * Make sure you give the correct permissions to the SP - Recommended: "Contributor" on the tenant (to avoid issues) and remember to delete later :) 
-8. Add these secrets to github secret
+4. Generate GutHub PAT (personal access token) - this will be used to post comments to PR during the pipeline
+    * Your Profile (picture on top right)  -> Settings -> Developer Settings -> Personal Access Tokens -> Tokens (classic) -> Generate new token (classic) -> give it a name and provide it permissions on repo -> copy the token for later
+5. Add all secrets to github secret
     * Settings  ->  Secrets and Variables  ->  Actions  ->  New repository secret
 ~~~
     * ARM_CLIENT_ID 
@@ -31,4 +33,5 @@ IaC - instructions
     * RESOURCE_GROUP
     * STORAGE_ACCOUNT
     * CONTAINER_NAME
+    * GH_TOKEN
 ~~~
