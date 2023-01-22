@@ -1,5 +1,6 @@
 name: 'Terraform'
 
+# When to run this action file
 on: [push, pull_request]
 
 env:
@@ -15,18 +16,16 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./main
+        working-directory: ./
 
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v2
 
-    # Install the preferred version of Terraform CLI 
+    # Install Terraform CLI 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-      with:
-        terraform_version: ${{ secrets.TERRAFORM_VERSION }}
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -45,37 +44,35 @@ jobs:
     ### Start editing from here ###
     ###############################
     
-    # Run a terraform fmt for push and PR on non-main branch
-    # Missing the following parameters: id, if, run
+    # Run a terraform fmt
     - name: Terraform Format
-      ...
+      id: fmt
 
     # Run a terraform validate for push and PR on non-main branch
-    # Run even if formatting fails
-    # Missing the following parameters: id, if, run
     - name: Terraform Validate
-      ...
-
-    # Run a terraform plan for pull requests only
-    # Missing the following parameters: id, env?, if, run
+      id: validate
+    
+    # Run Terraform plan - this action requires the SP and Azure details
     - name: Terraform Plan
-      ...
+      id: plan
 
     # Run Checkov against configuration
-    # Missing the following parameters: id, if, 
-    # with: check: CKV_AZURE_3
-    # uses: bridgecrewio/checkov-action@master
+    # Use example here: https://github.com/bridgecrewio/checkov-action
     - name: Checkov
-      ...
-    
-    # Add a comment to pull requests with plan results
-    # Missing the following parameters: id, if, env? 
-    # with: github-token: ${{ secrets.GITHUB_TOKEN }}, script: |...
-    # uses: actions/github-script@v3
-    - name: add-plan-comment
-      ...
+      id: checkov
 
-    # On push to main, build or change infrastructure according to Terraform configuration files
-    # Missing the following parameters: id, if, env?, run
+    
+    # OPTIONAL - if you have time - or you can just skip to the terraform apply
+    # Add a comment to pull requests with plan results
+    # Run this only on pull requests
+    # need to add "github-token: ${{ secrets.GH_TOKEN }}" so that the action has access to post comments
+    # use exaqmple here: https://github.com/actions/github-script
+    - name: add-plan-comment
+      id: comment_before_deployment
+ 
+
+      # On push to main, build or change infrastructure according to Terraform configuration files
+      # Only run when making a pull request
+      # Needs secrets: ARM_CLIENT_ID, ARM_CLIENT_SECRET, ARM_TENANT_ID, ARM_SUBSCRIPTION_ID
     - name: Terraform Apply
-      ...
+      id: apply
