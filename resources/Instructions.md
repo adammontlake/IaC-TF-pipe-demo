@@ -19,6 +19,8 @@ IaC - instructions
     * Create a service principal for automatic deployment
       *  Name = terraform_runner_sp
     * Generate a secret 
+      * Set expiry date to: Monday 30th Jan 2023
+    * Make sure you give the correct permissions to the SP - Recommended: "Contributor" on the tenant (to avoid issues) and remember to delete later :) 
 8. Add these secrets to github secret
     * Settings  ->  Secrets and Variables  ->  Actions  ->  New repository secret
 ~~~
