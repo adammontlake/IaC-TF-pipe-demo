@@ -17,7 +17,7 @@ IaC - instructions
 7. [Service Principal](https://learn.microsoft.com/en-us/azure/purview/create-service-principal-azure) (for TF to deploy)  **with permissions: "contributor"**
     * Create a service principal for automatic deployment
     * Generate a secret
-8. Generate GutHub PAT (personal access token) - this will be used to post commends to PR during the pipeline
+8. Generate GutHub PAT (personal access token) - this will be used to post comments to PR during the pipeline
     * Your Profile (picture on top right)  -> Settings -> Developer Settings -> Personal Access Tokens -> Tokens (classic) -> Generate new token (classic) -> give it a name and provide it permissions on repo -> copy the token for later
 10. Add all secrets to github secret
     * Settings  ->  Secrets and Variables  ->  Actions  ->  New repository secret
