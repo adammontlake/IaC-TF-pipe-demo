@@ -15,7 +15,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./main
+        working-directory: ./
 
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -25,8 +25,6 @@ jobs:
     # Install the preferred version of Terraform CLI 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-      with:
-        terraform_version: ${{ secrets.TERRAFORM_VERSION }}
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -41,41 +39,73 @@ jobs:
         CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
       run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"
 
-    ###############################
-    ### Start editing from here ###
-    ###############################
-    
-    # Run a terraform fmt for push and PR on non-main branch
-    # Missing the following parameters: id, if, run
+    # Run a terraform fmt
     - name: Terraform Format
-      ...
+      id: fmt
+      run: terraform fmt -check
 
     # Run a terraform validate for push and PR on non-main branch
     # Run even if formatting fails
-    # Missing the following parameters: id, if, run
     - name: Terraform Validate
-      ...
+      id: validate
+      run: terraform validate -no-color
 
-    # Run a terraform plan for pull requests only
-    # Missing the following parameters: id, env?, if, run
     - name: Terraform Plan
-      ...
+      id: plan
+      env:
+        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      run: terraform plan -no-color
 
     # Run Checkov against configuration
-    # Missing the following parameters: id, if, 
-    # with: check: CKV_AZURE_3
-    # uses: bridgecrewio/checkov-action@master
     - name: Checkov
-      ...
+      id: checkov
+      uses: bridgecrewio/checkov-action@master
+      with:
+        quiet: true
+        framework: terraform
+        container_user: 1000
+        output_format: github_failed_only
+        soft_fail: false
+        check: CKV_AZURE_3
+    
+    - name: Debug event
+      run: |
+        echo "Event name: ${{ github.event_name }}"
     
     # Add a comment to pull requests with plan results
-    # Missing the following parameters: id, if, env? 
-    # with: github-token: ${{ secrets.GITHUB_TOKEN }}, script: |...
-    # uses: actions/github-script@v3
     - name: add-plan-comment
-      ...
+      id: comment_before_deployment
+      uses: actions/github-script@v3
+      if: github.event_name == 'pull_request' && (success() || failure())
+      env:
+        PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+      with:
+        github-token: ${{ secrets.GH_TOKEN }}
+        script: |
+          const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+          #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+          #### Terraform Validation 🤖${{ steps.validate.outputs.stdout }}
+          #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+          #### Checkov 🧪\`${{ steps.checkov.outcome }}\`
+          #test with token
+          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
+            
+          github.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: output
+          })
 
-    # On push to main, build or change infrastructure according to Terraform configuration files
-    # Missing the following parameters: id, if, env?, run
+      # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
-      ...
+      if: github.event_name == 'pull_request'
+      env:
+        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      run: terraform apply -auto-approve
