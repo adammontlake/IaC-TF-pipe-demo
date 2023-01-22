@@ -57,16 +57,10 @@ jobs:
       id: plan
 
     # Run Checkov against configuration
+    # Use example here: https://github.com/bridgecrewio/checkov-action
     - name: Checkov
       id: checkov
-      uses: bridgecrewio/checkov-action@master
-      with:
-        quiet: true
-        framework: terraform
-        container_user: 1000
-        output_format: github_failed_only
-        soft_fail: false
-        check: CKV_AZURE_3
+
     
     # OPTIONAL - if you have time - or you can just skip to the terraform apply
     # Add a comment to pull requests with plan results
