@@ -18,7 +18,6 @@ provider "azurerm" {
 }
 
 locals {
-  # Comment
   # default values for setting up the environment
   module_tag = {
     "module"    = "launchpad"
