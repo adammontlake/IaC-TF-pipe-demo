@@ -14,8 +14,9 @@ IaC - instructions
    * Create Storage account
      * Storage account name: tfstorage$RAND
      * In the storage account, create a container with the name: tfstate (to hold Terraform state)
-6. Service Principal (for TF to deploy)  **with permissions: "contributor" on the Azure account**
-    * Generate secret for the SP
+6. [Service Principal](https://learn.microsoft.com/en-us/azure/purview/create-service-principal-azure) (for TF to deploy)  **with permissions: "contributor"**
+    * Create a service principal for automatic deployment
+    * Generate a secret 
 7. Add these secrets to github secret
     * Settings  ->  Secrets and Variables  ->  Actions  ->  New repository secret
 ~~~
