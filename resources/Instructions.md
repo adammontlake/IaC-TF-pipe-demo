@@ -20,9 +20,9 @@ IaC - instructions
       *  Name = terraform_runner_sp
     * Generate a secret 
       * Set expiry date to: Monday 30th Jan 2023
-    * Make sure you give the correct permissions to the SP - Recommended: "Contributor" on the subscription (to avoid issues) and remember to delete later :) 
+    * Make sure you give the correct [permissions](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal) to the SP - Recommended: "Contributor" on the subscription (to avoid issues) and remember to delete later :) 
 4. Generate GutHub PAT (personal access token) - this will be used to post comments to PR during the pipeline
-    * Your Profile (picture on top right)  -> Settings -> Developer Settings -> Personal Access Tokens -> Tokens (classic) -> Generate new token (classic) -> give it a name and provide it [permissions](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal) on repo -> copy the token for later
+    * Your Profile (picture on top right)  -> Settings -> Developer Settings -> Personal Access Tokens -> Tokens (classic) -> Generate new token (classic) -> give it a name and provide it permissions on repo -> copy the token for later
 5. Add all secrets to github secret
     * Settings  ->  Secrets and Variables  ->  Actions  ->  New repository secret
 ![repo settings screenshot](https://raw.githubusercontent.com/adammontlake/IaC-TF-pipe-demo/main/resources/repo_settings.png)
