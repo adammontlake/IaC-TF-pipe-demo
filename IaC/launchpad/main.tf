@@ -21,8 +21,8 @@ locals {
   # Comment
   # default values for setting up the environment
   module_tag = {
-    "module"    = "launchpad"
-    "managedby"    =    "terraform"
+    "module"       = "launchpad"
+    "managedby"    = "terraform"
   }
   tags               =merge(local.module_tag)
   location              = "eastus"
