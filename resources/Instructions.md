@@ -6,7 +6,7 @@ IaC - instructions
    * Select **public**
    * **Do not** add readme or GitIgnore at this stage
    * Press "create repository"
-   * In the "quick setup" page, select **import code** ![import screenshot](https://github.com/adammontlake/IaC-TF-pipe-demo/blob/add_resources/resources/import_code.png)
+   * In the "quick setup" page, select **import code** ![import screenshot](https://raw.githubusercontent.com/adammontlake/IaC-TF-pipe-demo/main/resources/import_code.png)
    * Use the following repo to import: https://github.com/adammontlake/IaCPipelineStructure
 2. Azure account
    * Create Resource Group 
@@ -25,7 +25,7 @@ IaC - instructions
     * Your Profile (picture on top right)  -> Settings -> Developer Settings -> Personal Access Tokens -> Tokens (classic) -> Generate new token (classic) -> give it a name and provide it ![permissions](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal) on repo -> copy the token for later
 5. Add all secrets to github secret
     * Settings  ->  Secrets and Variables  ->  Actions  ->  New repository secret
-![repo settings screenshot](https://github.com/adammontlake/IaC-TF-pipe-demo/blob/add_resources/resources/repo_settings.png)
+![repo settings screenshot](https://raw.githubusercontent.com/adammontlake/IaC-TF-pipe-demo/main/resources/repo_settings.png)
 ~~~
     * ARM_CLIENT_ID 
     * ARM_CLIENT_SECRET 
