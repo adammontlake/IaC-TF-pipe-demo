@@ -22,9 +22,9 @@ locals {
   # default values for setting up the environment
   module_tag = {
     "module"    = "launchpad"
-    "managedby" = "terraform"
+    "managedby"    =    "terraform"
   }
-  tags                  = merge(local.module_tag)
+  tags               =merge(local.module_tag)
   location              = "eastus"
   environment_name_prod = "production"
   environment_name_stg  = "staging"
@@ -32,4 +32,18 @@ locals {
   location-int          = "eastus"
   environment-int       = "integration"
   service_name-int      = "terraform"
+}
+
+module "launch_prod" {
+  source         = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/launch_environment"
+  location       = local.location
+  environment    = local.environment_name_prod
+  secure_storage = true
+}
+
+module "launch_stage" {
+  source         = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/launch_environment"
+  location       = local.location
+  environment    = local.environment_name_stg
+  secure_storage = true
 }
