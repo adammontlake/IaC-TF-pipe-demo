@@ -14,6 +14,7 @@ IaC - instructions
    * Create Storage account
      * Storage account name: tfstorage${RANDOM_STRING}
      * In the storage account, create a container with the name: tfstate (to hold Terraform state)
+       * Public access level = Private
 7. [Service Principal](https://learn.microsoft.com/en-us/azure/purview/create-service-principal-azure) (for TF to deploy)  **with permissions: "contributor"**
     * Create a service principal for automatic deployment
     * Generate a secret 
