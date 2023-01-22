@@ -6,7 +6,7 @@ IaC - instructions
    * Select **public**
    * **Do not** add readme or GitIgnore at this stage
    * Press "create repository"
-   * In the "quick setup" page, select **import code** ![import screenshot](https://assets.digitalocean.com/articles/alligator/boo.svg)
+   * In the "quick setup" page, select **import code** ![import screenshot]([https://assets.digitalocean.com/articles/alligator/boo.svg](https://github.com/adammontlake/IaC-TF-pipe-demo/blob/main/resources/import_code.png))
    * Use the following repo to import: https://github.com/adammontlake/IaCPipelineStructure
 6. Azure account
    * Create Resource Group 
