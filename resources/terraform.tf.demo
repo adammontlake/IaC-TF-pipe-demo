@@ -50,7 +50,7 @@ resource "azurerm_storage_container" "websitecontainer" {
 resource "azurerm_storage_blob" "content" {
   name                   = "index.html"
   storage_account_name   = azurerm_storage_account.example-sa.name
-  storage_container_name = azurerm_storage_container.testcontainer.name
+  storage_container_name = azurerm_storage_container.websitecontainer.name
   type                   = "Block"
   source                 = "index.html"
   content_type           = "text/html"
