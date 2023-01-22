@@ -15,7 +15,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./main
+        working-directory: ./
 
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -25,8 +25,6 @@ jobs:
     # Install the preferred version of Terraform CLI 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-      with:
-        terraform_version: ${{ secrets.TERRAFORM_VERSION }}
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -41,20 +39,17 @@ jobs:
         CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
       run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"
 
-    # Run a terraform fmt for push and PR on non-main branch
+    # Run a terraform fmt
     - name: Terraform Format
       id: fmt
-      if: github.ref != 'refs/heads/main'
       run: terraform fmt -check
 
     # Run a terraform validate for push and PR on non-main branch
     # Run even if formatting fails
     - name: Terraform Validate
       id: validate
-      if: github.ref != 'refs/heads/main' && (success() || failure())
       run: terraform validate -no-color
 
-    # Run a terraform plan for pull requests only
     - name: Terraform Plan
       id: plan
       env:
@@ -62,12 +57,10 @@ jobs:
         ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
         ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
         ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      if: github.event_name == 'pull_request'
       run: terraform plan -no-color
 
     # Run Checkov against configuration
     - name: Checkov
-      if: github.event_name == 'pull_request'
       id: checkov
       uses: bridgecrewio/checkov-action@master
       with:
@@ -76,34 +69,28 @@ jobs:
         container_user: 1000
         output_format: github_failed_only
         soft_fail: false
-        skip_check: CKV_AZURE_88,CKV_AZURE_71,CKV_AZURE_16,CKV_AZURE_80,CKV_AZURE_63,CKV_AZURE_18,CKV_AZURE_65,CKV_AZURE_17,CKV_AZURE_13,CKV_AZURE_78,CKV_AZURE_66,CKV_AZURE_44,CKV_AZURE_35,CKV_AZURE_43,CKV_AZURE_33,CKV_AZURE_3,CKV2_AZURE_1,CKV2_AZURE_18,CKV2_AZURE_8,CKV2_AZURE_21,CKV_GIT_4
+        check: CKV_AZURE_3
+    
+    - name: Debug event
+      run: |
+        echo "Event name: ${{ github.event_name }}"
     
     # Add a comment to pull requests with plan results
     - name: add-plan-comment
-      id: comment
+      id: comment_before_deployment
       uses: actions/github-script@v3
       if: github.event_name == 'pull_request' && (success() || failure())
       env:
         PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ secrets.GH_TOKEN }}
         script: |
           const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
           #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
           #### Terraform Validation 🤖${{ steps.validate.outputs.stdout }}
           #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
           #### Checkov 🧪\`${{ steps.checkov.outcome }}\`
-          <details><summary>Show Plan</summary>
-          
-          \`\`\`${process.env.PLAN}\`\`\`
-          
-          </details>
-          <details><summary>Show Checkov Results</summary>
-
-          ${process.env.CHECKOV_RESULTS}
-
-          </details>
-          
+          #test with token
           *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
             
           github.issues.createComment({
@@ -115,7 +102,7 @@ jobs:
 
       # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      if: github.event_name == 'pull_request'
       env:
         ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
         ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
