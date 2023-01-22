@@ -16,8 +16,10 @@ IaC - instructions
      * In the storage account, create a container with the name: tfstate (to hold Terraform state)
 7. [Service Principal](https://learn.microsoft.com/en-us/azure/purview/create-service-principal-azure) (for TF to deploy)  **with permissions: "contributor"**
     * Create a service principal for automatic deployment
-    * Generate a secret 
-8. Add these secrets to github secret
+    * Generate a secret
+8. Generate GutHub PAT (personal access token) - this will be used to post commends to PR during the pipeline
+    * Your Profile (picture on top right)  -> Settings -> Developer Settings -> Personal Access Tokens -> Tokens (classic) -> Generate new token (classic) -> give it a name and provide it permissions on repo -> copy the token for later
+10. Add all secrets to github secret
     * Settings  ->  Secrets and Variables  ->  Actions  ->  New repository secret
 ~~~
     * ARM_CLIENT_ID 
@@ -27,4 +29,5 @@ IaC - instructions
     * RESOURCE_GROUP
     * STORAGE_ACCOUNT
     * CONTAINER_NAME
+    * GH_TOKEN
 ~~~
