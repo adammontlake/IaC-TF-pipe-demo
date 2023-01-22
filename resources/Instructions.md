@@ -12,7 +12,7 @@ IaC - instructions
    * Create Resource Group 
      * Resource Group name: "IaC_pipelines_rg" (to hold all the new resources)
    * Create Storage account
-     * Storage account name: tfstorage$RAND
+     * Storage account name: tfstorage${RANDOM_STRING}
      * In the storage account, create a container with the name: tfstate (to hold Terraform state)
 7. [Service Principal](https://learn.microsoft.com/en-us/azure/purview/create-service-principal-azure) (for TF to deploy)  **with permissions: "contributor"**
     * Create a service principal for automatic deployment
