@@ -25,6 +25,7 @@ IaC - instructions
     * Your Profile (picture on top right)  -> Settings -> Developer Settings -> Personal Access Tokens -> Tokens (classic) -> Generate new token (classic) -> give it a name and provide it ![permissions](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal) on repo -> copy the token for later
 5. Add all secrets to github secret
     * Settings  ->  Secrets and Variables  ->  Actions  ->  New repository secret
+![repo settings screenshot](https://github.com/adammontlake/IaC-TF-pipe-demo/blob/add_resources/resources/repo_settings.png)
 ~~~
     * ARM_CLIENT_ID 
     * ARM_CLIENT_SECRET 
