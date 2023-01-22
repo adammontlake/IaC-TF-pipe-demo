@@ -17,6 +17,7 @@ IaC - instructions
        * Public access level = Private
 7. [Service Principal](https://learn.microsoft.com/en-us/azure/purview/create-service-principal-azure) (for TF to deploy)  **with permissions: "contributor"**
     * Create a service principal for automatic deployment
+      *  Name = terraform_runner_sp
     * Generate a secret 
 8. Add these secrets to github secret
     * Settings  ->  Secrets and Variables  ->  Actions  ->  New repository secret
