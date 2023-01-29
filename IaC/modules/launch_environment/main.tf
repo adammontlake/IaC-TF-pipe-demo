@@ -24,9 +24,9 @@ module "storage_name" {
 }
 
 module "env_storage" {
-  source                            = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/storage"
-  service_name        =local.service_name
-  resource_group_name          = azurerm_resource_group.env_rg.name
+  source                  = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/storage"
+  service_name            = local.service_name
+  resource_group_name     = azurerm_resource_group.env_rg.name
   location                = var.location
   account_tier            = local.account_tier
   environment             = var.environment
