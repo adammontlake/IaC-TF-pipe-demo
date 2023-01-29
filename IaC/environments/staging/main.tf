@@ -17,6 +17,7 @@ provider "azurerm" {
   features {}
 }
 
+#test self hosted provider
 locals {
   # default tags for the redis resource
   service_name   = "demoservice"
