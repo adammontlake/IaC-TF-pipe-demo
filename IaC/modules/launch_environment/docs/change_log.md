@@ -1,3 +1,0 @@
- - V1.0.0 - module created
- - V1.0.1 - 
-   - Added support for naming convention
