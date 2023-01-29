@@ -40,3 +40,10 @@ module "launch_stage" {
   environment    = local.environment_name_stg
   secure_storage = true
 }
+
+module "launch_prod" {
+  source         = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/launch_environment"
+  location       = local.location
+  environment    = local.environment_name_prod
+  secure_storage = true
+}
