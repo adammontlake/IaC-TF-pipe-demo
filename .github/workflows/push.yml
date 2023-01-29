@@ -52,7 +52,7 @@ jobs:
 
   readme-generation:
     name: 'readme-generation'
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: [init]
     environment: prepare
 
@@ -79,7 +79,7 @@ jobs:
     
   check-modules:
     name: 'check-modules'
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: [init,readme-generation]
     environment: prepare
     
@@ -124,7 +124,7 @@ jobs:
 
   terraform-validate:
     name: 'Terraform-validate'
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: [init,readme-generation]
     environment: prepare
     
@@ -163,7 +163,7 @@ jobs:
 
   security-scanning:
     name: 'security-scanning'
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: [init,readme-generation]
     environment: prepare
     
