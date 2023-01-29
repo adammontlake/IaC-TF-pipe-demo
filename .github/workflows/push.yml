@@ -16,7 +16,7 @@ env:
 jobs:
   init:
     name: init
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     environment: prepare
     
     outputs:
