@@ -33,10 +33,3 @@ locals {
   environment-int       = "integration"
   service_name-int      = "terraform"
 }
-
-module "launch_stage" {
-  source         = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/launch_environment"
-  location       = local.location
-  environment    = local.environment_name_stg
-  secure_storage = true
-}
