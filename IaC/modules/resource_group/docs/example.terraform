@@ -1,9 +1,6 @@
-module "resource_group" {
-  source                  = "git::https://github.com/IaC-TF-pipe-demo/terraform-modules.git//general/resource_group"
-  environment             = "integration"
-  location                = "eastus"
-  tags = {
-    environment = "dev"
-    costcenter  = "it"
-  }
+module "shared_resources_resource_group" {
+  source        = "git::https://github.com/microsoft/PDC//IaC/Modules/resource_group"
+  providers     = { azurerm = azurerm.sub-shared_resources-platform }
+  services      = ["shared_resources-network", "ghes-server", "ghes-runners", "ghes-keyvault", "arm_endpoint"]
+  environment   = "production"
 }

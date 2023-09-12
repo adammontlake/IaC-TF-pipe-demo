@@ -1,0 +1,4 @@
+type          = "ssh_key"
+workload      = "ghes"
+ssh_key_usage = "access"
+environment   = "production"

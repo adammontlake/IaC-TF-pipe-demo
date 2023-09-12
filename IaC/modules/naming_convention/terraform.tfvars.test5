@@ -1,0 +1,4 @@
+environment    = "production"
+type           = "vnet_peering"
+source_network = "source_vnet"
+target_network = "target_vnet"

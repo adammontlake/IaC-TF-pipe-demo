@@ -1,0 +1,24 @@
+module "network_security_group" {
+  source      = "git::https://github.com/microsoft/PDC//IaC/Modules/network_security_group"
+  providers   = { azurerm = azurerm.sub-shared_resources-platform }
+  environment = "production"
+  nsg         = [
+      {
+        scope                         = "subnet"
+        resource                      = "private_endpoints_shared_resources"
+        rg_name                       = "rg-shared_resources-network-prod"
+        add_default_deny_all_in_rule  = true
+        add_default_deny_all_out_rule = true
+      },
+      {
+        scope    = "subnet"
+        resource = "ghes"
+        rg_name  = "rg-ghes-server-prod"
+      },
+      {
+        scope    = "subnet"
+        resource = "ghe_runers"
+        rg_name  = "rg-ghes-runners-prod"
+      }
+    ]
+}

@@ -1,0 +1,4 @@
+environment     = "production"
+workload        = "github_agents"
+type            = "vmss"
+number          = 1

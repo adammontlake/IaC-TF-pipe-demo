@@ -1,0 +1,4 @@
+type        = "key_vault"
+workload    = "github"
+environment = "production"
+

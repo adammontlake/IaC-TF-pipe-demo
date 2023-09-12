@@ -1,6 +1,0 @@
-service_name            = "terraform"
-resource_group_name     = "testrg"
-location                = "eastus"
-account_tier            = "Standard"
-environment             = "production"
-terraform_state_storage = true

@@ -1,0 +1,8 @@
+module "public_ip" {
+  source               = "git::https://github.com/microsoft/PDC//IaC/Modules/public_ip"
+  providers            = { azurerm = azurerm.sub-connectivity-platform }
+  environment          = "production"
+  workload             = "connectivity"
+  subscription_purpose = "firewall"
+  rg_name              = "rg-firewall-production"
+}

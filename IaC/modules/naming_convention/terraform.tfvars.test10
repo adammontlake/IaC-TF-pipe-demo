@@ -1,0 +1,6 @@
+type                        = "firewall_policy_rule_DNAT"
+source_address_title        = "ghes_agents"
+source_port                 = "ANY"
+desatination_address_title  = "firewall_pip"
+destination_port            = "masquerade"
+environment                 = "production"

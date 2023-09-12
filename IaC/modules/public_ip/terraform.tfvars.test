@@ -1,0 +1,6 @@
+source               = "./public_ip"
+providers            = { azurerm = azurerm.sub-connectivity-platform }
+environment          = "production"
+workload             = "connectivity"
+subscription_purpose = "firewall"
+rg_name              = "rg-firewall-production"

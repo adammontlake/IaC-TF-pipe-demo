@@ -1,0 +1,26 @@
+source           = "./storage_account"
+providers        = { azurerm = azurerm.sub-shared_resources-platform }
+environment      = "production"
+pe_snet_id       = "/subscriptions/XXXXXXXX-YYYY-ZZZZ-AAAA-BBBBBBBBBBBB/resourceGroups/rg_name/providers/Microsoft.Network/virtualNetworks/vnet_name/subnets/snet_name"
+pe_zone_id       = "/subscriptions/XXXXXXXX-YYYY-ZZZZ-AAAA-BBBBBBBBBBBB/resourceGroups/rg_name/providers/Microsoft.Network/privateDnsZones/privatelink.blob.core.windows.net"
+storage_accounts = [
+  {
+    description      = "terraformstate"
+    rg_name          = "rg-terraform-state-prod"
+    public_access    = true
+    delete_retention = 1
+    restore          = 1
+    containers       = ["terraform-state-contsiner"]
+    kv_id            = "/subscriptions/XXXXXXXX-YYYY-ZZZZ-AAAA-BBBBBBBBBBBB/resourceGroups/rg-keyvault/providers/Microsoft.KeyVault/vaults/kv"
+    kv_key_name      = "key-terraformstorage-hsm"
+  },
+  {
+    description      = "ghes" 
+    rg_name          = "rg-ghes-server-prod"
+    delete_retention = 1
+    restore          = 1
+    containers       = ["dependencies"]
+    kv_id            = "/subscriptions/XXXXXXXX-YYYY-ZZZZ-AAAA-BBBBBBBBBBBB/resourceGroups/rg-keyvault/providers/Microsoft.KeyVault/vaults/kv"
+    kv_key_name      = "key-ghestorage-hsm"
+  }
+]

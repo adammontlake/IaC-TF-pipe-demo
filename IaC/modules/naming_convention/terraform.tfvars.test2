@@ -1,0 +1,3 @@
+environment     = "production"
+workload        = "storage_test"
+type            = "private_endpoint"
