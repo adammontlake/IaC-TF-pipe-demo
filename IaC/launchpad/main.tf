@@ -1,21 +1,21 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "= 3.30.0"
-    }
-  }
-  backend "azurerm" {
-    resource_group_name  = "rg_tf_launchpad"
-    storage_account_name = "storagetflaunchpad"
-    container_name       = "tfstate"
-    key                  = "launchpad.tfstate"
-  }
-}
+# terraform {
+#   required_providers {
+#     azurerm = {
+#       source  = "hashicorp/azurerm"
+#       version = "= 3.30.0"
+#     }
+#   }
+#   backend "azurerm" {
+#     resource_group_name  = "rg_tf_launchpad"
+#     storage_account_name = "storagetflaunchpad"
+#     container_name       = "tfstate"
+#     key                  = "launchpad.tfstate"
+#   }
+# }
 
-provider "azurerm" {
-  features {}
-}
+# provider "azurerm" {
+#   features {}
+# }
 
 locals {
   # Comment
