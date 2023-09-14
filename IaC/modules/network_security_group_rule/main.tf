@@ -1,6 +1,7 @@
 # generate the network security group's rules name based on naming convention
 module "nsg_name" {
-  source               = "git::https://github.com/microsoft/PDC//IaC/Modules/naming_convention"
+  #source               = "git::https://github.com/adammontlake/IaC-TF-pipe-demo//IaC/modules/naming_convention"
+  source               = "./../naming_convention"
   for_each             = { for idx, rule in var.nsg_rules : idx => rule }
   environment          = var.environment
   direction            = each.value.direction

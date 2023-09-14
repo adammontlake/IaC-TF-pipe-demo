@@ -1,6 +1,7 @@
 # generate the network security group's name based on naming convention
 module "nsg_name" {
-  source       = "git::https://github.com/microsoft/PDC//IaC/Modules/naming_convention"
+  #source       = "git::https://github.com/adammontlake/IaC-TF-pipe-demo//IaC/modules/naming_convention"
+  source       = "./../naming_convention"
   for_each     = { for idx, nsg in var.nsg : idx => nsg }
   environment  = var.environment
   nsg_scope    = each.value.scope

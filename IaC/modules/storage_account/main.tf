@@ -1,6 +1,7 @@
 # generate the storage account names based on naming convention
 module "storage_account_name" {
-  source              = "git::https://github.com/microsoft/PDC//IaC/Modules/naming_convention"
+  #source              = "git::https://github.com/adammontlake/IaC-TF-pipe-demo//IaC/modules/naming_convention"
+  source              = "./../naming_convention"
   for_each            = { for idx, sa in var.storage_accounts : idx => sa }
   storage_description = each.value.description
   environment         = var.environment
@@ -54,7 +55,8 @@ resource "azurerm_storage_account" "storage_account" {
 
 # create's storage account system assigned managed identity's role on key vault to encrypet the storage data
 module "role_assignment" {
-  source   = "git::https://github.com/microsoft/PDC//IaC/Modules/role_assignment"
+  #source   = "git::https://github.com/adammontlake/IaC-TF-pipe-demo//IaC/modules/role_assignment"
+  source   = "./../role_assignment"
   for_each = { for idx, sa in var.storage_accounts : idx => sa }
   assignments = [
     {
@@ -85,7 +87,8 @@ resource "azurerm_storage_container" "storage_container" {
 
 # create's storage account's private endpoint
 module "private_endpoint" {
-  source                = "git::https://github.com/microsoft/PDC//IaC/Modules/private_endpoint"
+  #source                = "git::https://github.com/adammontlake/IaC-TF-pipe-demo//IaC/modules/private_endpoint"
+  source                = "./../private_endpoint"
   for_each              = { for idx, sa in var.storage_accounts : idx => sa }
   workload              = "sa-${each.value.description}"
   environment           = var.environment

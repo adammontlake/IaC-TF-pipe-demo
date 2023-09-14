@@ -1,6 +1,7 @@
 # generate the virtual network name based on naming convention
 module "vnet_name" {
-  source      = "git::https://github.com/microsoft/PDC//IaC/Modules/naming_convention"
+  #source      = "git::https://github.com/adammontlake/IaC-TF-pipe-demo//IaC/modules/naming_convention"
+  source      = "./../naming_convention"
   for_each    = { for idx, vnet in var.virtual_networks : idx => vnet }
   workload    = each.value.workload
   environment = var.environment
@@ -23,7 +24,8 @@ resource "azurerm_virtual_network" "vnet" {
 
 # generate the virtual network's subnets names based on naming convention
 module "snet_names" {
-  source      = "git::https://github.com/microsoft/PDC//IaC/Modules/naming_convention"
+  #source      = "git::https://github.com/adammontlake/IaC-TF-pipe-demo//IaC/modules/naming_convention"
+  source      = "./../naming_convention"
   for_each    = { for snet in local.vnets : "${snet.vnet_key}.${snet.snet_key}" => snet }
   workload    = each.value.workload
   environment = var.environment

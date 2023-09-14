@@ -1,6 +1,7 @@
 # generate the public ip name based on naming convention
 module "pip_name" {
-  source               = "git::https://github.com/microsoft/PDC//IaC/Modules/naming_convention"
+  #source               = "git::https://github.com/adammontlake/IaC-TF-pipe-demo//IaC/modules/naming_convention"
+  source               = "./../naming_convention"
   workload             = var.workload
   environment          = var.environment
   subscription_purpose = var.subscription_purpose
