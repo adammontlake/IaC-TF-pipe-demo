@@ -1,9 +1,9 @@
 locals {
   # default tags for the redis resource
-  service_name   = "demoservice"
-  account_tier   = "Standard"
-  environment    = "production"
-  fd_sku = "Premium_AzureFrontDoor"
+  service_name = "demoservice"
+  account_tier = "Standard"
+  environment  = "production"
+  fd_sku       = "Premium_AzureFrontDoor"
   module_tag = {
     "managedby" = "terraform"
   }
