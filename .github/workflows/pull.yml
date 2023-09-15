@@ -138,14 +138,14 @@ jobs:
       id: show_plan
       run: |
         terraform show -json tfplan
-
+    
+    #         echo "MD_PLAN_CHANGES<<$EOF" >> $env:GITHUB_ENV
     - name: Parse Json Plan
       id: parse
       shell: pwsh
       run: |
         $mdTable = ./../../../resources/plan_formatting.ps1 -Json '${{steps.show_plan.outputs.stdout}}'
         $EOF = Get-Random -Minimum 100 -maximum 999
-        echo "MD_PLAN_CHANGES<<$EOF" >> $env:GITHUB_ENV
         echo $mdTable >> $env:GITHUB_ENV
         echo $EOF >> $env:GITHUB_ENV
 
