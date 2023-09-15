@@ -132,42 +132,11 @@ jobs:
       run: |
         terraform plan -out tfplan -no-color
         
-    
     # Generates an execution plan for Terraform
     - name: Show Terraform Plan
       id: show_plan
       run: |
         terraform show -json tfplan
-    
-    #         echo "MD_PLAN_CHANGES<<$EOF" >> $env:GITHUB_ENV
-    - name: Parse Json Plan
-      id: parse
-      shell: pwsh
-      run: |
-        $jsonOutput = "$((& terraform show -json tfplan))"
-        $mdTable = ./../../../resources/plan_formatting.ps1 -Json $jsonOutput
-        $EOF = Get-Random -Minimum 100 -maximum 999
-        echo $mdTable >> $env:GITHUB_ENV
-        echo $EOF >> $env:GITHUB_ENV
-
-    - name: Add Plan Changes Comment
-      if: success() || failure()
-      uses: actions/github-script@v3
-      env:
-        MD_PLAN_CHANGES: ${{ env.MD_PLAN_CHANGES }}
-      with:
-        github-token: ${{ secrets.GH_TOKEN }}
-        script: |
-          const output = `#### Plan Changes
-            ${{ env.MD_PLAN_CHANGES }}
-            `;
-               
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: output
-            })
 
     - name: add-plan-comment
       id: comment_before_pr
@@ -179,20 +148,9 @@ jobs:
         github-token: ${{ secrets.GH_TOKEN }}
         script: |
           const output = `#### Terraform Format and Style 🖌\`#$#$#$\`
-          #### Terraform Initialization ⚙️\`#$#$#$\`
-          #### Terraform Validation 🤖#$#$#$
-          #### Terraform Plan 📖\`#$#$#$\`
-          #### Checkov 🧪\` #$#$#$ \`
-          <details><summary>Show Plan</summary>
-          
-          \`\`\`#$#$#$\`\`\`
-          
-          </details>
-
-          <details><summary>Show Checkov Results</summary>
-
-          removed line 2
-
+          #### Terraform Plan 📖\${{ steps.plan.outcome }}\`
+          <details><summary>Show Plan Details</summary>
+          ${{ steps.show_plan.outputs.stdout }}
           </details>
 
           *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
