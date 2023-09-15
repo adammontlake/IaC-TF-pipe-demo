@@ -1,2 +1,3 @@
-location                = "eastus"
-environment             = "production"
+providers     = { azurerm = azurerm.sub-dev }
+services      = ["shared_resources-network", "ghes-server", "ghes-runners", "ghes-keyvault", "arm_endpoint"]
+environment   = "production"

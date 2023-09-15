@@ -1,27 +1,19 @@
-
-variable "location" {
-  description = "Specifies the supported Azure location where to create the resource. Changing this forces a new resource to be created."
+variable "environment" {
+  description = "(Required) Specifies the environment, for example: 'production' or 'pre-production'"
   type        = string
   validation {
-    condition = anytrue([
-      var.location == "eastus",
-      var.location == "eastus2",
-      var.location == "westus"
-    ])
-    error_message = "location  must be one of: \"eastus\", \"eastus2\" or \"westus\"."
+    condition     = contains(["production", "pre-production", "development"], var.environment)
+    error_message = "The environment value must be one of production, development, pre-production in lower case."
   }
 }
 
-variable "environment" {
-  description = "Name of the destination enviroment."
+variable "location" {
+  description = "(Optional) Specifies the location, for example: 'north Europe' or 'west Europe'."
   type        = string
-  default     = "production"
-  validation {
-    condition = anytrue([
-      var.environment == "integration",
-      var.environment == "staging",
-      var.environment == "production"
-    ])
-    error_message = "Environment  must be one of: \"integration\", \"staging\" or \"production\"."
-  }
+  default     = "West Europe"
+}
+
+variable "services" {
+  description = "(Required) Specifies the list of resource group's service name"
+  type        = list(string)
 }

@@ -1,0 +1,4 @@
+type                   = "dns_private_resolver_rule_set"
+rule_set_description   = "catch_all"
+number                 = 1
+environment            = "production"

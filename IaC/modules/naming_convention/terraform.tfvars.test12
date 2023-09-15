@@ -1,0 +1,7 @@
+type                        = "firewall_policy_rule_network"
+source_address_title        = "log_forwarder"
+source_port                 = "ANY"
+protocol                    = "tcp"
+desatination_address_title  = "LAW_pe"
+destination_port            = "443"
+environment                 = "production"

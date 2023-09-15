@@ -1,6 +1,6 @@
-module "resource_name" {
-  source      = "git::https://github.com/adammontlake/IaC-TF-pipe-demo.git//IaC/modules/naming_convention"
-  location    = local.location
-  environment = local.environment
-  servicename = "${local.service_name}-resource-type"
+module "resource_group_name" {
+  source          = "git::https://github.com/microsoft/PDC/tree/main/IaC/Modules/naming_convention"
+  service_name    = "shared_resources"
+  environment     = "production"
+  type            = "resource_group"
 }

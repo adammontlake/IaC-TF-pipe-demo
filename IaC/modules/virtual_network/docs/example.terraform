@@ -1,0 +1,28 @@
+module "virtual_network" {
+  source           = "git::https://github.com/adammontlake/IaC-TF-pipe-demo//IaC/modules/virtual_network"
+  providers        = { azurerm = azurerm.sub-shared_resources-platform }
+  environment      = "production"
+  virtual_networks = [
+    {
+      workload      = "shared_resources"
+      rg_name       = "rg-shared_resources-network-prod"
+      address_space = "10.0.0.0/24"
+      subnets = [
+        {
+          workload      = "GatewaySubnet"
+          address_space = "10.0.0.0/26"
+        },
+        {
+          workload      = "ghes"
+          address_space = "10.0.0.64/28"
+          nsg_id        = "/subscriptions/XXXXXXXX-YYYY-ZZZZ-AAAA-BBBBBBBBBBBB/resourceGroups/rg_name/providers/Microsoft.Network/networkSecurityGroups/nsg_name"
+        },
+        {
+          workload      = "ghe_runner"
+          address_space = "10.0.0.128/26"
+          nsg_id        = "/subscriptions/XXXXXXXX-YYYY-ZZZZ-AAAA-BBBBBBBBBBBB/resourceGroups/rg_name/providers/Microsoft.Network/networkSecurityGroups/nsg_name"
+        }
+      ]
+    }
+  ]
+}

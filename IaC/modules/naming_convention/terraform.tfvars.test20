@@ -1,0 +1,5 @@
+type               = "vpn_gateway_er_connection"
+environment        = "production"
+local_network_ref  = "connectivity"
+remote_network_ref = "office"
+plane              = "mp"

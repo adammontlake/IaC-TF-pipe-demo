@@ -1,0 +1,7 @@
+type                        = "firewall_policy_rule_app"
+source_address_title        = "management_vmss"
+source_port                 = "ANY"
+protocol                    = "tcp"
+desatination_address_title  = "ARM"
+destination_port            = "443"
+environment                 = "production"

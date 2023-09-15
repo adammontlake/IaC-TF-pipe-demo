@@ -45,50 +45,8 @@ jobs:
         echo "JSON of all new or modifed Module: \n $planModules"
         echo "::set-output name=planModules::${planModules}"
 
-
-  check-modules:
-    name: 'check-modules'
-    runs-on: ubuntu-latest
-    needs: [init]
-    environment: prepare
-    
-    # foreach folder from init job run this job 
-    strategy:
-      # if one of the jobs is failling - still continue to run all of the others 
-      fail-fast: false
-      matrix: 
-        folder: ${{ fromJson(needs.init.outputs.plan-modules) }}
-    
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: ${{ matrix.folder }}
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      
-    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-
-    - name: Create provider file 
-      id: provider
-      run: |
-        echo "provider "azurerm" {  
-          features {}
-        }" >> provider.tf
-        
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init
-      run: terraform init
-    
-    - name: Terraform Plan
-      run: terraform plan -var-file=terraform.tfvars.test
-
   terraform:
-    name: 'Terraform-deploy'
+    name: 'Terraform-deploy-plan'
     runs-on: ubuntu-latest
     needs: [init]
     environment: prepare
@@ -113,6 +71,13 @@ jobs:
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
+    
+    - name: Create provider file 
+      id: provider
+      run: |
+        echo "${{ vars.SUBSCRIPTIONS }}" >> provider.tf
+        state_file_name="${PWD##*/}.tfstate"
+        sed -i "s/terraform.tfstate/${state_file_name}/g" provider.tf
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init

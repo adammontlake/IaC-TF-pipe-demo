@@ -1,0 +1,22 @@
+module "network_security_group_rule" {
+  source          = "git::https://github.com/adammontlake/IaC-TF-pipe-demo//IaC/modules/network_security_group_rule"
+  providers       = { azurerm = azurerm.sub-shared_resources-platform }
+  environment     = "production"
+  nsg_rules       = [
+    {
+      nsg_name             = "nsg-snet-private_endpoints_shared_resources"
+      nsg_rg_name          = "rg-shared_resources-network-prod"
+      direction            = "i"
+      action               = "Allow"
+      source_resource      = "GitHub-Runnerrs-ASG"
+      destination_resource = "Github-Servers-IP"
+      description          = "DESC"
+      protocol             = "Tcp"
+      src_port             = "*"
+      dest_port            = "*"
+      src_address          = "*"
+      dest_address         = "*"
+      priority             = 100
+    }
+  ]
+}

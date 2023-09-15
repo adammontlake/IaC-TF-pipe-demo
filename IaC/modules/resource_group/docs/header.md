@@ -1,1 +1,1 @@
-Header file for resource_group module
+This module create resource group's link based on the HLD.

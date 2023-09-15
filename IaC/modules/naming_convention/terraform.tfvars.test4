@@ -1,0 +1,4 @@
+environment     = "production"
+workload        = "ghes"
+type            = "vm"
+number          = 1

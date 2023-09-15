@@ -1,0 +1,4 @@
+type                = "firewall_policy_rule_collection"
+traffic_type        = "network"
+group_description   = "shared_resources"
+environment         = "production"

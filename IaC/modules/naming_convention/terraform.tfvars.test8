@@ -1,0 +1,4 @@
+type                = "firewall_policy_rule_collection_group"
+traffic_type        = "application"
+policy_description  = "base"
+environment         = "production"

@@ -1,0 +1,5 @@
+type        = "dns_private_resolver_endpoint"
+direction   = "in"
+workload    = "internal_resolver"
+number      = 1
+environment = "production"

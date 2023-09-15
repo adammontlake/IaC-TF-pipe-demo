@@ -1,0 +1,4 @@
+type                        = "managed_disk"
+disk_resource_description   = "ghe_agents_vmss"
+disk_description         = "os"
+environment                 = "production"
