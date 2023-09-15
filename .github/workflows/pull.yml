@@ -136,7 +136,9 @@ jobs:
       with:
         github-token: ${{ secrets.GH_TOKEN }}
         script: |
-          infracost_result = "$(cat /tmp/infracost.json)"
+          const path = '/tmp/infracost.json'; 
+          const fileContent = fs.readFileSync(path, 'utf-8');
+
           const output = `#### Terraform Format and Style 🖌\`#$#$#$\`
           #### Terraform Initialization ⚙️\`#$#$#$\`
           #### Terraform Validation 🤖#$#$#$
@@ -155,7 +157,7 @@ jobs:
           </details>
 
           <details><summary>Show Cost</summary>
-          ${infracost_result}
+          ${fileContent}
           </details>
 
           *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
