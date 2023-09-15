@@ -87,7 +87,7 @@ jobs:
         # Generate Infracost JSON file as the baseline.
     - name: Generate Infracost cost estimate baseline
       run: |
-        infracost breakdown \
+        infracost breakdown --path . \
           --format=json \
           --out-file=/tmp/infracost-base.json
           
@@ -97,7 +97,7 @@ jobs:
 
     - name: Generate Infracost diff
       run: |
-        infracost diff \
+        infracost diff --path . \
           --format=json \
           --compare-to=/tmp/infracost-base.json \
           --out-file=/tmp/infracost.json
