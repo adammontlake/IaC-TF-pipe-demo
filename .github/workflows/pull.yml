@@ -130,7 +130,7 @@ jobs:
     - name: Terraform Plan
       id: plan
       run: |
-        $null = terraform plan -out tfplan -no-color
+        terraform plan -out tfplan -no-color
         
     
     # Generates an execution plan for Terraform
