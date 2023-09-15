@@ -44,7 +44,7 @@ module "virtual_network" {
 |------|-------------|------|---------|:--------:|
 | <a name="input_environment"></a> [environment](#input\_environment) | (Required) Specifies the environment, for example: 'production' or 'pre-production' | `string` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | (Optional) Specifies the location, for example: 'north Europe' or 'west Europe'. | `string` | `"West Europe"` | no |
-| <a name="input_virtual_networks"></a> [virtual\_networks](#input\_virtual\_networks) | (Required)Specifies the virtual network's objects with its subnets | <pre>list(object({<br>    workload      = string<br>    rg_name       = string<br>    address_space = string<br>    dns_servers   = optional(list(string), [])<br>    subnets = list(object({<br>      workload      = string<br>      address_space = string<br>      nsg_id        = optional(string, null)<br>      is_resolver_snet = optional(bool, false)<br>    }))<br>  }))</pre> | n/a | yes |
+| <a name="input_virtual_networks"></a> [virtual\_networks](#input\_virtual\_networks) | (Required)Specifies the virtual network's objects with its subnets | <pre>list(object({<br>    workload      = string<br>    rg_name       = string<br>    address_space = string<br>    dns_servers   = optional(list(string), [])<br>    subnets = list(object({<br>      workload         = string<br>      address_space    = string<br>      nsg_id           = optional(string, null)<br>      is_resolver_snet = optional(bool, false)<br>    }))<br>  }))</pre> | n/a | yes |
 
 ## Outputs
 
