@@ -138,7 +138,7 @@ jobs:
         script: |
           const fs = require('fs');
           const path = '/tmp/infracost.json'; 
-          const fileContent = fs.readFileSync(path, 'utf-8');
+          const fileContent = JSON.stringify(JSON.parse(fs.readFileSync(path, 'utf-8')),null,2);
 
           const output = `#### Terraform Format and Style 🖌\`#$#$#$\`
           #### Terraform Initialization ⚙️\`#$#$#$\`
