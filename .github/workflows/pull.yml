@@ -102,13 +102,13 @@ jobs:
           --compare-to=/tmp/infracost-base.json \
           --out-file=/tmp/infracost.json
           
-    # - name: Post Infracost comment
-    #   run: |
-    #     infracost comment github --path=/tmp/infracost.json \
-    #       --repo=$GITHUB_REPOSITORY \
-    #       --github-token=${{github.GH_TOKEN}} \
-    #       --pull-request=${{github.event.pull_request.number}} \
-    #       --behavior=update
+    - name: Post Infracost comment
+      run: |
+        infracost comment github --path=/tmp/infracost.json \
+          --repo=$GITHUB_REPOSITORY \
+          --github-token=${{github.GH_TOKEN}} \
+          --pull-request=${{github.event.pull_request.number}} \
+          --behavior=update
                                      
                                      
     - name: Create provider file 
