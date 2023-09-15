@@ -65,19 +65,49 @@ jobs:
         working-directory: ${{ matrix.folder }}
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+    
+    # - name: Checkout
+    #   uses: actions/checkout@v3
       
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
     
+    - name: Setup Infracost
+      uses: infracost/actions/setup@v2
+      with:
+        api-key: ${{ secrets.INFRACOST_API_TOKEN }}
+
     - name: Create provider file 
       id: provider
       run: |
         echo "${{ vars.SUBSCRIPTIONS }}" >> provider.tf
         state_file_name="${PWD##*/}.tfstate"
         sed -i "s/terraform.tfstate/${state_file_name}/g" provider.tf
+    
+        # Checkout the base branch of the pull request (e.g. main/master).
+    - name: Checkout base branch
+      uses: actions/checkout@v3
+      with:
+        ref: '${{ github.event.pull_request.base.ref }}'
+  
+        # Generate Infracost JSON file as the baseline.
+    - name: Generate Infracost cost estimate baseline
+      run: |
+        infracost breakdown \
+          --format=json \
+          --out-file=/tmp/infracost-base.json
+          
+    # Checkout the current PR branch so we can create a diff.
+    - name: Checkout PR branch
+      uses: actions/checkout@v3
+
+    - name: Generate Infracost diff
+      run: |
+        infracost diff \
+          --format=json \
+          --compare-to=/tmp/infracost-base.json \
+          --out-file=/tmp/infracost.json
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
