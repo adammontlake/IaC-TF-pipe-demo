@@ -26,14 +26,14 @@ module "network_security_group" {
       {
         scope                         = "subnet"
         resource                      = "vm"
-        rg_name                       = module.connectivity_rg.rg_name["rg-network"]
+        rg_name                       = module.demo_resource_group.rg_name["rg-network"]
         add_default_deny_all_in_rule  = false
         add_default_deny_all_out_rule = false
       },
       {
         scope                         = "subnet"
         resource                      = "vm2"
-        rg_name                       = module.connectivity_rg.rg_name["rg-network"]
+        rg_name                       = module.demo_resource_group.rg_name["rg-network"]
         add_default_deny_all_in_rule  = false
         add_default_deny_all_out_rule = false
       }
@@ -47,7 +47,7 @@ module "virtual_network" {
   virtual_networks = [
     {
       workload      = "demo_resources"
-      rg_name       = module.connectivity_rg.rg_name["rg-network"]
+      rg_name       = module.demo_resource_group.rg_name["rg-network"]
       address_space = "10.0.0.0/24"
       subnets = [
         {
