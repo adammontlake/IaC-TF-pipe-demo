@@ -106,7 +106,7 @@ jobs:
       run: |
         infracost comment github --path=/tmp/infracost.json \
           --repo=$GITHUB_REPOSITORY \
-          --github-token=${{github.GH_TOKEN}} \
+          --github-token=${{secrets.GH_TOKEN}} \
           --pull-request=${{github.event.pull_request.number}} \
           --behavior=update
                                      
