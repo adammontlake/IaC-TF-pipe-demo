@@ -36,7 +36,7 @@ resource "azurerm_network_security_rule" "deny_all_in" {
   access                      = "Deny"
   priority                    = 4096
   direction                   = "Inbound"
-  depends_on = [ azurerm_network_security_group.nsg ]
+  depends_on                  = [azurerm_network_security_group.nsg]
 }
 
 # create's network security group's default Outbound deny rule
@@ -54,5 +54,5 @@ resource "azurerm_network_security_rule" "deny_all_out" {
   access                      = "Deny"
   priority                    = 4096
   direction                   = "Outbound"
-  depends_on = [ azurerm_network_security_group.nsg ]
+  depends_on                  = [azurerm_network_security_group.nsg]
 }

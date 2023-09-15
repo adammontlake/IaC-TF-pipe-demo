@@ -21,9 +21,9 @@ variable "virtual_networks" {
     address_space = string
     dns_servers   = optional(list(string), [])
     subnets = list(object({
-      workload      = string
-      address_space = string
-      nsg_id        = optional(string, null)
+      workload         = string
+      address_space    = string
+      nsg_id           = optional(string, null)
       is_resolver_snet = optional(bool, false)
     }))
   }))

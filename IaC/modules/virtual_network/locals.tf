@@ -7,7 +7,7 @@ locals {
         workload         = snet.workload
         address_space    = snet.address_space
         nsg_id           = snet.nsg_id
-        is_resolver_snet = snet.is_resolver_snet 
+        is_resolver_snet = snet.is_resolver_snet
       }
     ]
   ])
