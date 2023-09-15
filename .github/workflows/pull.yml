@@ -120,6 +120,7 @@ jobs:
       id: jason_plan
       run: |
         terraform show -json tfplan > plan.json
+        touch /tmp/infracost.json
 
     - name: Generate Infracost diff
       run: |
