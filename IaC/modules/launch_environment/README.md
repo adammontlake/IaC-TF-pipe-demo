@@ -29,12 +29,7 @@ module "launch_environment" {
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_rg_id"></a> [rg\_id](#output\_rg\_id) | The resource group ID |
-| <a name="output_rg_name"></a> [rg\_name](#output\_rg\_name) | Storage resource group name |
-| <a name="output_storage_id"></a> [storage\_id](#output\_storage\_id) | The storage account ID |
-| <a name="output_storage_name"></a> [storage\_name](#output\_storage\_name) | Storage account name |
+No outputs.
 
 ## Providers
 
