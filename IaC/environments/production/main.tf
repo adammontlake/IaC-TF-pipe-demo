@@ -1,6 +1,6 @@
 locals {
-  env          = "production"
-  eh_sku       = "Premium"
+  env    = "production"
+  eh_sku = "Premium"
 }
 
 # module "demo_resource_group" {
