@@ -136,6 +136,7 @@ jobs:
       with:
         github-token: ${{ secrets.GH_TOKEN }}
         script: |
+          const fs = require('fs');
           const path = '/tmp/infracost.json'; 
           const fileContent = fs.readFileSync(path, 'utf-8');
 
