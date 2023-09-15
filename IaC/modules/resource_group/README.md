@@ -25,6 +25,7 @@ module "shared_resources_resource_group" {
 | Name | Description |
 |------|-------------|
 | <a name="output_rg_id"></a> [rg\_id](#output\_rg\_id) | n/a |
+| <a name="output_rg_location"></a> [rg\_location](#output\_rg\_location) | n/a |
 | <a name="output_rg_name"></a> [rg\_name](#output\_rg\_name) | n/a |
 
 ## Providers
