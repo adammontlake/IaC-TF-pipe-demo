@@ -1,5 +1,5 @@
 module "network_security_group" {
-  source      = "git::https://github.com/microsoft/PDC//IaC/Modules/network_security_group"
+  source      = "git::https://github.com/adammontlake/IaC-TF-pipe-demo//IaC/modules/network_security_group"
   providers   = { azurerm = azurerm.sub-shared_resources-platform }
   environment = "production"
   nsg         = [
