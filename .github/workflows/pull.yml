@@ -78,19 +78,24 @@ jobs:
       with:
         api-key: ${{ secrets.INFRACOST_API_TOKEN }}
     
-        # Checkout the base branch of the pull request (e.g. main/master).
+    # Checkout the base branch of the pull request (e.g. main/master).
     - name: Checkout base branch
       uses: actions/checkout@v3
       with:
         ref: '${{ github.event.pull_request.base.ref }}'
   
-        # Generate Infracost JSON file as the baseline.
+    # Generate Infracost JSON file as the baseline.
     - name: Generate Infracost cost estimate baseline
       run: |
         infracost breakdown --path . \
           --format=json \
           --out-file=/tmp/infracost-base.json
-          
+    
+    # echo price diff for test.
+    - name: echo price diff for test
+      run: |
+        echo /tmp/infracost-base.json
+
     # Checkout the current PR branch so we can create a diff.
     - name: Checkout PR branch
       uses: actions/checkout@v3
@@ -109,8 +114,7 @@ jobs:
           --github-token=${{secrets.GH_TOKEN}} \
           --pull-request=${{github.event.pull_request.number}} \
           --behavior=update
-                                     
-                                     
+                                                            
     - name: Create provider file 
       id: provider
       run: |
