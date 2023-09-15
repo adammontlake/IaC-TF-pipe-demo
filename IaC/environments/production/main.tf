@@ -15,5 +15,5 @@ resource "azurerm_eventhub_namespace" "example" {
   location            = module.demo_resource_group.rg_location["rg-network"]
   resource_group_name = module.demo_resource_group.rg_name["rg-network"]
   sku                 = local.eh_sku
-  capacity                  = 1
+  capacity            = 1
 }
