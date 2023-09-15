@@ -125,6 +125,7 @@ jobs:
     - name: Generate Infracost diff
       run: |
         infracost diff --path plan.json
+          --format=json \
           --out-file=/tmp/infracost.json
 
     - name: Post Infracost comment
