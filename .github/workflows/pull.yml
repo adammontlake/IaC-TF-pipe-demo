@@ -136,10 +136,6 @@ jobs:
       with:
         github-token: ${{ secrets.GH_TOKEN }}
         script: |
-          const fs = require('fs');
-          const path = '/tmp/infracost.json'; 
-          const fileContent = JSON.stringify(JSON.parse(fs.readFileSync(path, 'utf-8')),null,2);
-
           const output = `#### Terraform Format and Style 🖌\`#$#$#$\`
           #### Terraform Initialization ⚙️\`#$#$#$\`
           #### Terraform Validation 🤖#$#$#$
@@ -155,10 +151,6 @@ jobs:
 
           removed line 2
 
-          </details>
-
-          <details><summary>Show Cost</summary>
-          ${fileContent}
           </details>
 
           *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
