@@ -24,6 +24,6 @@ resource "azurerm_cdn_frontdoor_profile" "example" {
   sku_name            = local.fd_sku
 
   tags = {
-    environment = locals.environment
+    environment = local.environment
   }
 }
