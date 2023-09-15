@@ -147,7 +147,8 @@ jobs:
       with:
         github-token: ${{ secrets.GH_TOKEN }}
         script: |
-          const output = `#### Terraform Format and Style 🖌\`#$#$#$\`
+          const output = `
+          ${{ matrix.folder }}
           #### Terraform Plan 📖\${{ steps.plan.outcome }}\`
           <details><summary>Show Plan Details</summary>
           ${{ steps.plan.outputs.stdout }}
