@@ -79,41 +79,26 @@ jobs:
         api-key: ${{ secrets.INFRACOST_API_TOKEN }}
     
     # Checkout the base branch of the pull request (e.g. main/master).
-    - name: Checkout base branch
-      uses: actions/checkout@v3
-      with:
-        ref: '${{ github.event.pull_request.base.ref }}'
+    # - name: Checkout base branch
+    #   uses: actions/checkout@v3
+    #   with:
+    #     ref: '${{ github.event.pull_request.base.ref }}'
   
     # Generate Infracost JSON file as the baseline.
-    - name: Generate Infracost cost estimate baseline
-      run: |
-        infracost breakdown --path . \
-          --format=json \
-          --out-file=/tmp/infracost-base.json
+    # - name: Generate Infracost cost estimate baseline
+    #   run: |
+    #     infracost breakdown --path . \
+    #       --format=json \
+    #       --out-file=/tmp/infracost-base.json
     
     # echo price diff for test.
-    - name: echo price diff for test
-      run: |
-        cat /tmp/infracost-base.json
+    # - name: echo price diff for test
+    #   run: |
+    #     cat /tmp/infracost-base.json
 
     # Checkout the current PR branch so we can create a diff.
     - name: Checkout PR branch
       uses: actions/checkout@v3
-
-    - name: Generate Infracost diff
-      run: |
-        infracost diff --path . \
-          --format=json \
-          --compare-to=/tmp/infracost-base.json \
-          --out-file=/tmp/infracost.json
-          
-    - name: Post Infracost comment
-      run: |
-        infracost comment github --path=/tmp/infracost.json \
-          --repo=$GITHUB_REPOSITORY \
-          --github-token=${{secrets.GH_TOKEN}} \
-          --pull-request=${{github.event.pull_request.number}} \
-          --behavior=update
                                                             
     - name: Create provider file 
       id: provider
@@ -129,7 +114,25 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       id: plan
-      run: terraform plan -input=false
+      run: terraform plan -input=false -out=tfplan
+
+    - name: Convert plan to json
+      id: jason_plan
+      run: |
+        terraform show -json tfplan > plan.json
+
+    - name: Generate Infracost diff
+      run: |
+        infracost diff --path plan.json
+          --out-file=/tmp/infracost.json
+
+    - name: Post Infracost comment
+      run: |
+        infracost comment github --path=/tmp/infracost.json \
+          --repo=$GITHUB_REPOSITORY \
+          --github-token=${{secrets.GH_TOKEN}} \
+          --pull-request=${{github.event.pull_request.number}} \
+          --behavior=update
 
     - name: add-plan-comment
       id: comment_before_pr
