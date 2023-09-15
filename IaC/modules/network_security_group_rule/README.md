@@ -12,7 +12,7 @@ Note: the NSG rules module depends on the creation of the following resources:
 ## Example ussage
 ```hcl
 module "network_security_group_rule" {
-  source          = "git::https://github.com/microsoft/PDC//IaC/Modules/network_security_group_rule"
+  source          = "git::https://github.com/adammontlake/IaC-TF-pipe-demo//IaC/modules/network_security_group_rule"
   providers       = { azurerm = azurerm.sub-shared_resources-platform }
   environment     = "production"
   nsg_rules       = [

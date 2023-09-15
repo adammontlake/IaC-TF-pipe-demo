@@ -6,7 +6,7 @@ This module create resource group's link based on the HLD.
 ## Example ussage
 ```hcl
 module "shared_resources_resource_group" {
-  source        = "git::https://github.com/microsoft/PDC//IaC/Modules/resource_group"
+  source        = "git::https://github.com/adammontlake/IaC-TF-pipe-demo//IaC/modules/resource_group"
   providers     = { azurerm = azurerm.sub-shared_resources-platform }
   services      = ["shared_resources-network", "ghes-server", "ghes-runners", "ghes-keyvault", "arm_endpoint"]
   environment   = "production"

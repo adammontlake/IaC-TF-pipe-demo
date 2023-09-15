@@ -9,7 +9,7 @@ Depends on:
 ## Example ussage
 ```hcl
 module "public_ip" {
-  source               = "git::https://github.com/microsoft/PDC//IaC/Modules/public_ip"
+  source               = "git::https://github.com/adammontlake/IaC-TF-pipe-demo//IaC/modules/public_ip"
   providers            = { azurerm = azurerm.sub-connectivity-platform }
   environment          = "production"
   workload             = "connectivity"
