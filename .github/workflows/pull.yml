@@ -136,7 +136,7 @@ jobs:
       with:
         github-token: ${{ secrets.GH_TOKEN }}
         script: |
-          infracost_result = $(cat /tmp/infracost.json)
+          infracost_result = "$(cat /tmp/infracost.json)"
           const output = `#### Terraform Format and Style 🖌\`#$#$#$\`
           #### Terraform Initialization ⚙️\`#$#$#$\`
           #### Terraform Validation 🤖#$#$#$
