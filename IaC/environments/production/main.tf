@@ -53,12 +53,12 @@ module "virtual_network" {
         {
           workload      = "vm"
           address_space = "10.0.0.64/28"
-          nsg_id        = module.connectivity_nsg.nsg_id["vm1"]
+          nsg_id        = module.network_security_group.nsg_id["vm1"]
         },
         {
           workload      = "vm2"
           address_space = "10.0.0.128/26"
-          nsg_id        = module.connectivity_nsg.nsg_id["vm2"]
+          nsg_id        = module.network_security_group.nsg_id["vm2"]
         }
       ]
     }
