@@ -1,14 +1,11 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "= 3.30.0"
-    }
+locals {
+  # default tags for the redis resource
+  service_name   = "demoservice"
+  account_tier   = "Standard"
+  environment    = "production"
+  secure_storage = true
+  module_tag = {
+    "managedby" = "terraform"
   }
-  backend "azurerm" {
-    resource_group_name  = "prod-production-rg-e"
-    storage_account_name = "prodterraformstorageeiac"
-    container_name       = "tfstate"
-    key                  = "production.tfstate"
-  }
+  tags = merge(local.module_tag)
 }
