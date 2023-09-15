@@ -22,28 +22,28 @@ module "network_security_group" {
   source      = "git::https://github.com/adammontlake/IaC-TF-pipe-demo//IaC/modules/network_security_group"
   providers   = { azurerm = azurerm.sub-dev }
   environment = "production"
-  nsg         = [
-      {
-        scope                         = "subnet"
-        resource                      = "vm"
-        rg_name                       = module.demo_resource_group.rg_name["rg-network"]
-        add_default_deny_all_in_rule  = false
-        add_default_deny_all_out_rule = false
-      },
-      {
-        scope                         = "subnet"
-        resource                      = "vm2"
-        rg_name                       = module.demo_resource_group.rg_name["rg-network"]
-        add_default_deny_all_in_rule  = false
-        add_default_deny_all_out_rule = false
-      }
-    ]
+  nsg = [
+    {
+      scope                         = "subnet"
+      resource                      = "vm"
+      rg_name                       = module.demo_resource_group.rg_name["rg-network"]
+      add_default_deny_all_in_rule  = false
+      add_default_deny_all_out_rule = false
+    },
+    {
+      scope                         = "subnet"
+      resource                      = "vm2"
+      rg_name                       = module.demo_resource_group.rg_name["rg-network"]
+      add_default_deny_all_in_rule  = false
+      add_default_deny_all_out_rule = false
+    }
+  ]
 }
 
 module "virtual_network" {
-  source           = "git::https://github.com/adammontlake/IaC-TF-pipe-demo//IaC/modules/virtual_network"
-  providers        = { azurerm = azurerm.sub-dev }
-  environment      = "production"
+  source      = "git::https://github.com/adammontlake/IaC-TF-pipe-demo//IaC/modules/virtual_network"
+  providers   = { azurerm = azurerm.sub-dev }
+  environment = "production"
   virtual_networks = [
     {
       workload      = "demo_resources"
