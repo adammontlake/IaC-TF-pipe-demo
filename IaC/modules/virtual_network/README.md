@@ -10,7 +10,7 @@ Depends on:
 ## Example ussage
 ```hcl
 module "virtual_network" {
-  source           = "git::https://github.com/microsoft/PDC//IaC/Modules/virtual_network"
+  source           = "git::https://github.com/adammontlake/IaC-TF-pipe-demo//IaC/modules/virtual_network"
   providers        = { azurerm = azurerm.sub-shared_resources-platform }
   environment      = "production"
   virtual_networks = [
