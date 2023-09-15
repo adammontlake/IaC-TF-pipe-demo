@@ -70,7 +70,7 @@ resource "azurerm_linux_virtual_machine" "example" {
     azurerm_network_interface.example.id,
   ]
 
-  admin_password = "asdadssasdasd!@#1" 
+  admin_password                  = "asdadssasdasd!@#1"
   disable_password_authentication = false
 
   os_disk {
