@@ -150,7 +150,7 @@ jobs:
           const output = `#### Terraform Format and Style 🖌\`#$#$#$\`
           #### Terraform Plan 📖\${{ steps.plan.outcome }}\`
           <details><summary>Show Plan Details</summary>
-          ${{ steps.show_plan.outputs.stdout }}
+          ${{ steps.plan.outputs.stdout }}
           </details>
 
           *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
