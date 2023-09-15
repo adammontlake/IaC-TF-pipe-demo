@@ -65,13 +65,56 @@ jobs:
         working-directory: ${{ matrix.folder }}
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+    
+    # - name: Checkout
+    #   uses: actions/checkout@v3
       
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
     
+    - name: Setup Infracost
+      uses: infracost/actions/setup@v2
+      with:
+        api-key: ${{ secrets.INFRACOST_API_TOKEN }}
+    
+    # Checkout the base branch of the pull request (e.g. main/master).
+    - name: Checkout base branch
+      uses: actions/checkout@v3
+      with:
+        ref: '${{ github.event.pull_request.base.ref }}'
+  
+    # Generate Infracost JSON file as the baseline.
+    - name: Generate Infracost cost estimate baseline
+      run: |
+        infracost breakdown --path . \
+          --format=json \
+          --out-file=/tmp/infracost-base.json
+    
+    # Checkout the current PR branch so we can create a diff.
+    - name: Checkout PR branch
+      uses: actions/checkout@v3
+
+    - name: Generate Infracost diff
+      run: |
+        infracost diff --path . \
+          --format=json \
+          --compare-to=/tmp/infracost-base.json \
+          --out-file=/tmp/infracost.json
+    
+    # echo price diff for test.
+    - name: echo price diff for test
+      run: |
+        cat /tmp/infracost.json
+
+    - name: Post Infracost comment
+      run: |
+        infracost comment github --path=/tmp/infracost.json \
+          --repo=$GITHUB_REPOSITORY \
+          --github-token=${{secrets.GH_TOKEN}} \
+          --pull-request=${{github.event.pull_request.number}} \
+          --behavior=new
+                                                            
     - name: Create provider file 
       id: provider
       run: |
@@ -86,7 +129,14 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       id: plan
-      run: terraform plan -input=false
+      run: |
+        terraform plan -out tfplan -no-color
+        
+    # Generates an execution plan for Terraform
+    - name: Show Terraform Plan
+      id: show_plan
+      run: |
+        terraform show -json tfplan
 
     - name: add-plan-comment
       id: comment_before_pr
@@ -97,23 +147,13 @@ jobs:
       with:
         github-token: ${{ secrets.GH_TOKEN }}
         script: |
-          const output = `#### Terraform Format and Style 🖌\`#$#$#$\`
-          #### Terraform Initialization ⚙️\`#$#$#$\`
-          #### Terraform Validation 🤖#$#$#$
-          #### Terraform Plan 📖\`#$#$#$\`
-          #### Checkov 🧪\` #$#$#$ \`
-          <details><summary>Show Plan</summary>
-          
-          \`\`\`#$#$#$\`\`\`
-          
+          const output = `
+          #### Environment path ${{ matrix.folder }}
+          #### Terraform Plan 📖\${{ steps.plan.outcome }}\`
+          <details><summary>Show Plan Details</summary>
+          ${{ steps.plan.outputs.stdout }}
           </details>
 
-          <details><summary>Show Checkov Results</summary>
-
-          removed line 2
-
-          </details>
-          
           *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
             
           github.issues.createComment({
