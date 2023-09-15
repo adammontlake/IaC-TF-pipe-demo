@@ -1,13 +1,6 @@
 locals {
-  # default tags for the redis resource
-  service_name = "demoservice"
-  account_tier = "Standard"
-  environment  = "production"
+  env          = "production"
   eh_sku       = "Premium"
-  module_tag = {
-    "managedby" = "terraform"
-  }
-  tags = merge(local.module_tag)
 }
 
 # module "demo_resource_group" {
@@ -15,7 +8,7 @@ locals {
 #   source      = "./../../modules/resource_group"
 #   providers   = { azurerm = azurerm.sub-dev }
 #   services    = ["rg-network"]
-#   environment = "production"
+#   environment = local.env
 # }
 
 # resource "azurerm_eventhub_namespace" "example" {
