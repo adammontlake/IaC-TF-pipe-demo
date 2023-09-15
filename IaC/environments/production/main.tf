@@ -18,16 +18,6 @@ module "demo_resource_group" {
   environment = "production"
 }
 
-resource "azurerm_cdn_frontdoor_profile" "example" {
-  name                = "example-cdn-profile"
-  resource_group_name = module.demo_resource_group.rg_name["rg-network"]
-  sku_name            = local.fd_sku
-
-  tags = {
-    environment = locals.environment
-  }
-}
-
 resource "azurerm_eventhub_namespace" "example" {
   name                = "example-eh"
   location            = module.demo_resource_group.rg_location["rg-network"]
