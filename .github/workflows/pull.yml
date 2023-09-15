@@ -144,7 +144,7 @@ jobs:
       id: parse
       shell: pwsh
       run: |
-        $jsonOutput = (& terraform show -json tfplan)
+        $jsonOutput = "$((& terraform show -json tfplan))"
         $mdTable = ./../../../resources/plan_formatting.ps1 -Json $jsonOutput
         $EOF = Get-Random -Minimum 100 -maximum 999
         echo $mdTable >> $env:GITHUB_ENV
