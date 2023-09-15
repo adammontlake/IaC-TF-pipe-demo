@@ -133,17 +133,17 @@ jobs:
         terraform plan -out tfplan -no-color
         
     
-    # Generates an execution plan for Terraform
-    - name: Show Terraform Plan
-      id: show_plan
-      run: |
-        terraform show -json tfplan
+    # # Generates an execution plan for Terraform
+    # - name: Show Terraform Plan
+    #   id: show_plan
+    #   run: |
+    #     terraform show -json tfplan
 
     - name: Parse Json Plan
       id: parse
       shell: pwsh
       run: |
-        $mdTable = ./../../../resources/plan_formatting.ps1 -Json '${{steps.show_plan.outputs.stdout}}'
+        $mdTable = ./../../../resources/plan_formatting.ps1 -Json "$(cat tfplan)"
         $EOF = Get-Random -Minimum 100 -maximum 999
         echo "MD_PLAN_CHANGES<<$EOF" >> $env:GITHUB_ENV
         echo $mdTable >> $env:GITHUB_ENV
